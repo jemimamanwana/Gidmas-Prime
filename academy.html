@@ -124,44 +124,248 @@
   .brand-shield--lg .monogram { font-size: 24px; }
 
   body.gate-active { overflow: hidden; }
+
+  /* Login gate — half brand (left) + half login panel (right) */
   .app-gate {
     position: fixed;
     inset: 0;
     z-index: 400;
+    min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    background:
-      radial-gradient(ellipse at 40% 0%, rgba(30,58,158,0.5) 0%, transparent 55%),
-      radial-gradient(ellipse at 85% 100%, rgba(15,123,74,0.2) 0%, transparent 50%),
-      linear-gradient(180deg, #061139 0%, #030826 100%);
+    flex-direction: column;
+    overflow: auto;
+    background: var(--royal-deep);
     animation: fadeIn 0.5s ease;
   }
   .app-gate[hidden] { display: none !important; }
+  .app-gate-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 15% 15%, rgba(30,58,158,0.55) 0%, transparent 52%),
+      radial-gradient(ellipse at 90% 90%, rgba(15,123,74,0.22) 0%, transparent 50%),
+      linear-gradient(180deg, #061139 0%, #030826 100%);
+  }
+  .app-gate-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.42;
+    pointer-events: none;
+    animation: gateGlowDrift 14s ease-in-out infinite alternate;
+  }
+  @keyframes gateGlowDrift {
+    from { transform: translate(0,0) scale(1); }
+    to { transform: translate(40px, -30px) scale(1.08); }
+  }
+  .app-gate-glow-1 { width: min(520px, 80vw); height: min(520px, 80vw); top: -12%; left: -8%; background: var(--royal-light); }
+  .app-gate-glow-2 { width: min(480px, 70vw); height: min(480px, 70vw); bottom: -18%; left: 5%; background: var(--gold-deep); opacity: 0.28; animation-delay: -5s; }
+  .app-gate-grid-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.45;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  .app-gate-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.08fr 1fr;
+    align-items: stretch;
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
+  }
+  .app-gate-hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(32px, 5vw, 72px) clamp(28px, 4vw, 56px);
+    color: var(--ivory);
+  }
+  .app-gate-hero-inner { max-width: 440px; animation: fadeUp 0.7s cubic-bezier(.2,.8,.2,1); }
+  .app-gate-logo {
+    margin-bottom: 28px;
+    filter: drop-shadow(0 12px 36px rgba(212,175,55,0.35));
+    animation: float 8s ease-in-out infinite;
+  }
+  .brand-shield--gate-hero { width: 112px; height: 126px; }
+  .brand-shield--gate-hero .monogram { font-size: 46px; }
+  .app-gate-brand-name {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 5.5vw, 64px);
+    font-weight: 800;
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+    margin: 0 0 6px;
+    background: linear-gradient(90deg, var(--gold-light) 0%, var(--gold) 45%, var(--gold-deep) 70%, var(--gold-light) 100%);
+    background-size: 180% auto;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gateShimmer 5s linear infinite;
+  }
+  @keyframes gateShimmer { to { background-position: 200% center; } }
+  .app-gate-brand-prime {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(22px, 3.2vw, 32px);
+    color: rgba(253,248,236,0.95);
+    letter-spacing: 0.14em;
+    margin: 0 0 14px;
+  }
+  .app-gate-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(17px, 2.2vw, 20px);
+    color: rgba(253,248,236,0.72);
+    line-height: 1.45;
+    margin: 0 0 28px;
+  }
+  .app-gate-quote { color: var(--gold); font-family: 'Fraunces', serif; font-size: 1.25em; vertical-align: -0.08em; }
+  .app-gate-features { display: flex; flex-direction: column; gap: 6px; margin-bottom: 28px; }
+  .app-gate-feature {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px; color: rgba(253,248,236,0.9);
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(212,175,55,0.12);
+  }
+  .app-gate-feature:last-child { border-bottom: none; }
+  .app-gate-feature .gf-ico {
+    color: var(--gold); font-weight: 700; width: 20px; text-align: center; flex-shrink: 0;
+  }
+  .app-gate-footer {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(15px, 1.8vw, 17px);
+    color: var(--gold-light);
+    padding-top: 20px;
+    border-top: 1px solid rgba(212,175,55,0.2);
+  }
+  .app-gate-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(28px, 4vw, 48px) clamp(22px, 3vw, 40px);
+    background: var(--cream);
+    border-left: 1px solid rgba(212,175,55,0.15);
+  }
   .app-gate-card {
     width: 100%;
-    max-width: 440px;
-    background: linear-gradient(165deg, rgba(30,58,158,0.42), rgba(6,17,57,0.92));
-    border: 1px solid var(--gold);
-    border-radius: 22px;
-    padding: 36px 32px 32px;
-    box-shadow: 0 36px 100px rgba(0,0,0,0.55);
-    position: relative;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 16px;
+    padding: clamp(28px, 4vw, 36px) clamp(26px, 3.5vw, 32px);
+    box-shadow: 0 28px 72px rgba(6,17,57,0.18);
+    border: 1px solid rgba(232,224,199,0.9);
   }
-  .app-gate-card .crest-row {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+  .app-gate-card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--royal-deep);
+    margin: 0 0 6px;
+  }
+  .app-gate-card-sub {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.55;
+    margin: 0 0 22px;
+  }
+  .app-gate-panel .auth-tabs {
+    display: flex; gap: 4px; padding: 4px;
+    background: var(--cream);
+    border-radius: 10px;
     margin-bottom: 22px;
+  }
+  .app-gate-panel .gate-tab {
+    flex: 1;
+    padding: 11px 8px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+  .app-gate-panel .gate-tab.active {
+    background: #fff;
+    color: var(--royal-deep);
+    box-shadow: 0 1px 4px rgba(15,30,79,0.08);
+  }
+  .app-gate-panel .field { margin-bottom: 14px; }
+  .app-gate-panel .field label { color: #475569; font-size: 11px; letter-spacing: 0.12em; }
+  .app-gate-panel .field input,
+  .app-gate-panel .field select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1.5px solid #e8e0c7;
+    background: #fdfbf7;
+    color: var(--ink);
+    font-size: 14px;
+  }
+  .app-gate-panel .field input:focus,
+  .app-gate-panel .field select:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.12);
+  }
+  .app-gate-panel .field select option { background: #fff; color: var(--ink); }
+  .app-gate-panel .auth-divider { color: #94a3b8; margin: 16px 0 12px; }
+  .app-gate-panel .auth-divider::before,
+  .app-gate-panel .auth-divider::after { background: #e8e0c7; }
+  .app-gate-panel .auth-alt-methods {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .app-gate-panel .auth-alt-methods button {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1.5px solid #e8e0c7;
+    background: #fdfbf7;
+    color: #475569;
+    font-weight: 600;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, color 0.2s;
+  }
+  .app-gate-panel .auth-alt-methods button:hover {
+    border-color: var(--gold);
+    background: #fff;
+    color: var(--royal-deep);
   }
   .app-gate-note {
     text-align: center;
     font-size: 12px;
-    color: rgba(253,248,236,0.55);
-    line-height: 1.5;
-    margin-top: 18px;
+    color: #94a3b8;
+    line-height: 1.55;
+    margin-top: 20px;
+  }
+  @media (max-width: 960px) {
+    .app-gate-inner { grid-template-columns: 1fr; min-height: auto; }
+    .app-gate-hero { padding: 36px 24px 24px; text-align: center; }
+    .app-gate-hero-inner { max-width: 520px; margin: 0 auto; }
+    .app-gate-logo { display: flex; justify-content: center; }
+    .app-gate-features { text-align: left; max-width: 400px; margin-left: auto; margin-right: auto; }
+    .app-gate-panel {
+      border-left: none;
+      border-top: 1px solid rgba(212,175,55,0.12);
+      padding-bottom: 40px;
+    }
   }
   .brand-text { line-height: 1; }
   .brand-text .name {
@@ -1106,67 +1310,91 @@
 </head>
 <body class="gate-active">
 
-<!-- ======================== LOGIN GATE (any credentials accepted) ======================== -->
+<!-- ======================== LOGIN GATE — half brand / half login (any credentials OK) ======================== -->
 <div id="appGate" class="app-gate" aria-modal="true" role="dialog" aria-labelledby="gateTitle">
-  <div class="app-gate-card">
-    <div class="crest-row">
-      <div class="brand-shield-wrap brand-shield--lg" aria-hidden="true">
-        <div class="brand-shield">
-          <span class="monogram">G</span>
-          <span class="brand-shield-fleur"></span>
+  <div class="app-gate-bg" aria-hidden="true"></div>
+  <div class="app-gate-glow app-gate-glow-1" aria-hidden="true"></div>
+  <div class="app-gate-glow app-gate-glow-2" aria-hidden="true"></div>
+  <div class="app-gate-grid-pattern" aria-hidden="true"></div>
+
+  <div class="app-gate-inner">
+    <div class="app-gate-hero">
+      <div class="app-gate-hero-inner">
+        <div class="app-gate-logo">
+          <div class="brand-shield-wrap brand-shield--gate-hero" aria-hidden="true">
+            <div class="brand-shield">
+              <span class="monogram">G</span>
+              <span class="brand-shield-fleur"></span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="brand-text" style="text-align:center;">
-        <div class="name" style="letter-spacing:0.16em;font-size:18px;">GIDMAS PRIME</div>
-        <div class="tag" style="margin-top:6px;">Your child's best friend</div>
-      </div>
-    </div>
-    <h2 id="gateTitle" style="font-family:'Fraunces',serif;font-weight:600;font-size:24px;text-align:center;margin-bottom:8px;">Enter the academy</h2>
-    <p style="text-align:center;color:var(--muted);font-size:14px;line-height:1.55;margin-bottom:22px;">Sign in once to open the library, tutor, and community. This demo accepts any email and password — nothing is validated or sent online.</p>
-    <div class="auth-tabs" style="margin-bottom:22px;">
-      <button type="button" class="auth-tab gate-tab active" data-gate-tab="login">Sign in</button>
-      <button type="button" class="auth-tab gate-tab" data-gate-tab="signup">Sign up</button>
-    </div>
-    <div id="gateLoginPane">
-      <div class="field">
-        <label>Email</label>
-        <input type="text" id="gateEmailLogin" autocomplete="username" placeholder="anything@school.bw" />
-      </div>
-      <div class="field">
-        <label>Password</label>
-        <input type="password" id="gatePassLogin" autocomplete="current-password" placeholder="anything works" />
-      </div>
-      <button type="button" class="btn btn-gold" style="width:100%;margin-top:4px;" onclick="handleGateLogin()">Sign in & Continue</button>
-      <div class="auth-divider">or continue with</div>
-      <div class="auth-alt-methods">
-        <button type="button" onclick="handleGateShortcut('whatsapp')">WhatsApp</button>
-        <button type="button" onclick="handleGateShortcut('google')">Google</button>
+        <div class="app-gate-brand-name">GIDMAS</div>
+        <div class="app-gate-brand-prime">PRIME</div>
+        <p class="app-gate-tagline"><span class="app-gate-quote">&ldquo;</span>your child&rsquo;s best friend<span class="app-gate-quote">&rdquo;</span></p>
+        <div class="app-gate-features">
+          <div class="app-gate-feature"><span class="gf-ico">&bull;</span> Sir Gideon &mdash; tutor that meets you where you are</div>
+          <div class="app-gate-feature"><span class="gf-ico">&bull;</span> PSLE &middot; JCE &middot; BGCSE &middot; IGCSE in one place</div>
+          <div class="app-gate-feature"><span class="gf-ico">&bull;</span> Notes, video masterclasses &amp; study circles</div>
+          <div class="app-gate-feature"><span class="gf-ico">&bull;</span> A calm dashboard for parents &amp; guardians</div>
+        </div>
+        <p class="app-gate-footer">Your &commat;home school, your classroom, your future.</p>
       </div>
     </div>
-    <div id="gateSignupPane" style="display:none;">
-      <div class="field">
-        <label>Full name (optional)</label>
-        <input type="text" id="gateNameUp" placeholder="Your name" />
+
+    <div class="app-gate-panel">
+      <div class="app-gate-card">
+        <h2 class="app-gate-card-title" id="gateTitle">Welcome back</h2>
+        <p class="app-gate-card-sub">Sign in once to open the library, Sir Gideon, and the rest of the academy. This demo accepts <strong>any</strong> email and password &mdash; nothing is sent to a server.</p>
+        <div class="auth-tabs">
+          <button type="button" class="gate-tab active" data-gate-tab="login">Sign in</button>
+          <button type="button" class="gate-tab" data-gate-tab="signup">Create account</button>
+        </div>
+        <div id="gateLoginPane">
+          <div class="field">
+            <label>Email or username</label>
+            <input type="text" id="gateEmailLogin" autocomplete="username" placeholder="you@school.bw" />
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input type="password" id="gatePassLogin" autocomplete="current-password" placeholder="Anything works" />
+          </div>
+          <button type="button" class="btn btn-gold" style="width:100%;margin-top:8px;" onclick="handleGateLogin()">Enter your kingdom &rarr;</button>
+          <div class="auth-divider">or continue with</div>
+          <div class="auth-alt-methods">
+            <button type="button" onclick="handleGateShortcut('google')">Google</button>
+            <button type="button" onclick="handleGateShortcut('whatsapp')">WhatsApp</button>
+          </div>
+        </div>
+        <div id="gateSignupPane" style="display:none;">
+          <div class="field">
+            <label>Full name (optional)</label>
+            <input type="text" id="gateNameUp" placeholder="Your name" />
+          </div>
+          <div class="field">
+            <label>Email (optional)</label>
+            <input type="text" id="gateEmailUp" placeholder="you@example.com" />
+          </div>
+          <div class="field">
+            <label>I am a&hellip;</label>
+            <select id="gateRoleUp">
+              <option>Student</option>
+              <option>Parent / Guardian</option>
+              <option>Teacher</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Password (optional)</label>
+            <input type="password" id="gatePassUp" placeholder="Any characters" />
+          </div>
+          <button type="button" class="btn btn-gold" style="width:100%;margin-top:8px;" onclick="handleGateSignup()">Begin your journey &rarr;</button>
+        </div>
+        <p class="app-gate-note">
+          <a href="about.html" style="color:#1e3a8a;font-weight:600;text-decoration:none;">What is GIDMAS PRIME?</a>
+          <span style="color:#cbd5e1;"> &middot; </span>
+          <a href="index.html" style="color:#94a3b8;text-decoration:none;">Site hub</a>
+        </p>
       </div>
-      <div class="field">
-        <label>Email (optional)</label>
-        <input type="text" id="gateEmailUp" placeholder="you@example.com" />
-      </div>
-      <div class="field">
-        <label>I am a…</label>
-        <select id="gateRoleUp">
-          <option>Student</option>
-          <option>Parent / Guardian</option>
-          <option>Teacher</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Password (optional)</label>
-        <input type="password" id="gatePassUp" placeholder="any letters" />
-      </div>
-      <button type="button" class="btn btn-gold" style="width:100%;margin-top:4px;" onclick="handleGateSignup()">Create & Continue</button>
     </div>
-    <p class="app-gate-note"><a href="about.html" style="color:var(--gold-light);text-decoration:none;">What is GIDMAS PRIME?</a> · <a href="index.html" style="color:rgba(253,248,236,0.45);text-decoration:none;">Site hub</a></p>
   </div>
 </div>
 
