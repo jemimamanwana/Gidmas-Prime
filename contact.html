@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — GIDMAS PRIME</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #0b1e5b 0%, #061139 55%, #030826 100%);
+      color: #fdf8ec;
+      padding: clamp(28px, 5vw, 64px);
+    }
+    .wrap { max-width: 520px; margin: 0 auto; }
+    a.back {
+      display: inline-block;
+      margin-bottom: 28px;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(253,248,236,0.75);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+    a.back:hover { color: #f2d578; }
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    .sub { color: rgba(253,248,236,0.65); font-size: 15px; margin-bottom: 28px; line-height: 1.55; }
+    label { display: block; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(253,248,236,0.55); margin-bottom: 8px; }
+    input, textarea {
+      width: 100%; margin-bottom: 18px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(212,175,55,0.28);
+      background: rgba(253,248,236,0.06);
+      color: #fdf8ec;
+      font-size: 15px;
+      outline: none;
+    }
+    input:focus, textarea:focus { border-color: #d4af37; }
+    textarea { min-height: 120px; resize: vertical; }
+    button {
+      width: 100%;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #f2d578, #d4af37);
+      color: #061139;
+      box-shadow: 0 10px 32px rgba(212,175,55,0.25);
+      transition: transform 0.2s ease;
+    }
+    button:hover { transform: translateY(-2px); }
+    .note {
+      margin-top: 18px;
+      font-size: 13px;
+      color: rgba(253,248,236,0.5);
+      line-height: 1.55;
+    }
+    .toast {
+      display: none;
+      margin-top: 20px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: rgba(15,123,74,0.85);
+      border: 1px solid rgba(46,224,146,0.35);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .toast.show { display: block; animation: fade 0.4s ease; }
+    @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="index.html">← Back to home</a>
+    <h1>Contact</h1>
+    <p class="sub">This form does not send data to a server. It simulates sending so you can wire a backend later.</p>
+
+    <form id="contactForm">
+      <label for="name">Your name</label>
+      <input id="name" name="name" type="text" autocomplete="name" placeholder="Optional" />
+
+      <label for="email">Email or phone</label>
+      <input id="email" name="email" type="text" autocomplete="email" placeholder="Optional" />
+
+      <label for="msg">Message</label>
+      <textarea id="msg" name="msg" placeholder="Hi GIDMAS team…"></textarea>
+
+      <button type="submit">Send message</button>
+    </form>
+    <p class="note">Tip: integrate <code style="opacity:0.85;">mailto:</code>, Formspree, or your API by editing the submit handler below.</p>
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var t = document.getElementById('toast');
+      t.textContent = 'Thanks — in this demo nothing was uploaded online. Hook this form up when your backend is ready.';
+      t.classList.add('show');
+      document.getElementById('contactForm').reset();
+    });
+  </script>
+</body>
+</html>

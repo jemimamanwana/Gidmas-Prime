@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GIDMAS PRIME — Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --royal: #061139;
+      --royal-mid: #0b1e5b;
+      --gold: #d4af37;
+      --gold-light: #f2d578;
+      --emerald: #0f7b4a;
+      --cream: #fdf8ec;
+      --muted: rgba(253,248,236,0.75);
+      --line: rgba(212,175,55,0.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(30,58,158,0.45) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(15,123,74,0.25) 0%, transparent 50%),
+        linear-gradient(165deg, #061139 0%, #030826 100%);
+      color: var(--cream);
+      padding: clamp(24px, 5vw, 56px);
+    }
+    header { max-width: 960px; margin: 0 auto 48px; }
+    .crest {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      display: grid; place-items: center;
+      font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.35rem;
+      color: var(--royal);
+      box-shadow: 0 0 28px rgba(212,175,55,0.35);
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.85rem, 4.5vw, 2.75rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    h1 em {
+      font-style: italic;
+      background: linear-gradient(90deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .lede {
+      margin-top: 14px;
+      color: var(--muted);
+      max-width: 52ch;
+      line-height: 1.65;
+      font-size: 1rem;
+    }
+    nav.links {
+      margin-top: 22px;
+      display: flex; flex-wrap: wrap; gap: 12px;
+    }
+    nav.links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    nav.links a:hover {
+      color: var(--gold-light);
+      border-color: var(--gold);
+      background: rgba(212,175,55,0.08);
+    }
+    main { max-width: 960px; margin: 0 auto; }
+    .cards {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .card {
+      background: rgba(6,17,57,0.55);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 28px 26px;
+      display: flex; flex-direction: column;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+      box-shadow: 0 22px 50px rgba(212,175,55,0.12);
+    }
+    .tag {
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .card h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 22px;
+    }
+    .card a.cta {
+      display: inline-flex;
+      align-self: flex-start;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: var(--royal);
+      box-shadow: 0 8px 26px rgba(212,175,55,0.28);
+      transition: transform 0.2s ease;
+    }
+    .card a.cta:hover { transform: translateY(-2px); }
+    .card.light-style .cta {
+      background: linear-gradient(135deg, var(--emerald), #17a05c);
+      color: var(--cream);
+      box-shadow: 0 8px 26px rgba(15,123,74,0.35);
+    }
+    footer {
+      max-width: 960px;
+      margin: 56px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--muted);
+      display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between;
+    }
+    footer a { color: var(--gold-light); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .pill {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 11px;
+      color: rgba(253,248,236,0.55);
+      letter-spacing: 0.08em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="crest">G</div>
+    <h1>Welcome to <em>GIDMAS PRIME</em></h1>
+    <p class="lede">Choose an experience below. Everything runs in your browser with JavaScript — no database and no cloud sign-on required. Sir Gideon uses built-in replies so demos work offline.</p>
+    <nav class="links">
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <p class="pill">Demo build · Botswana curricula · PSLE · JCE · BGCSE · IGCSE</p>
+  </header>
+
+  <main>
+    <div class="cards">
+      <article class="card">
+        <span class="tag">Dark · single page</span>
+        <h2>Royal academy view</h2>
+        <p>Original immersive layout with home, tutor, library, lessons, community, parent snapshot, store, and membership flows — all wired for local demos.</p>
+        <a class="cta" href="academy.html">Open academy →</a>
+      </article>
+
+      <article class="card light-style">
+        <span class="tag">Studio dashboard</span>
+        <h2>Study studio suite</h2>
+        <p>Dashboard-focused light theme with notes, Sir Gideon chat, lessons, XP, notifications, communities, shop, plans, and payments — launches directly as Guest.</p>
+        <a class="cta" href="studio.html">Enter studio →</a>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <span>Older copies: <a href="gidmas_prime.html">gidmas_prime.html</a> · <a href="gidmas_prime%20(1).html">gidmas_prime (1).html</a></span>
+    <span>Use <strong>index.html</strong> as your main entry when hosting or sharing.</span>
+  </footer>
+</body>
+</html>

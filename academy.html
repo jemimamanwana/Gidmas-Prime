@@ -1,0 +1,2261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GIDMAS PRIME — Your Child's Best Friend</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --royal:       #0B1E5B;
+    --royal-deep:  #061139;
+    --royal-light: #1E3A9E;
+    --emerald:     #0F7B4A;
+    --emerald-light:#17A05C;
+    --emerald-glow:#2EE092;
+    --gold:        #D4AF37;
+    --gold-light:  #F2D578;
+    --gold-deep:   #A8841C;
+    --ivory:       #FDF8EC;
+    --cream:       #F7EFD8;
+    --ink:         #0A0E26;
+    --muted:       rgba(253,248,236,0.68);
+    --line:        rgba(212,175,55,0.22);
+    --glass:       rgba(11,30,91,0.55);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: var(--royal-deep);
+    color: var(--ivory);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse at 15% 0%, rgba(30,58,158,0.55) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 100%, rgba(15,123,74,0.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(212,175,55,0.08) 0%, transparent 70%),
+      linear-gradient(180deg, #061139 0%, #030826 100%);
+    min-height: 100vh;
+  }
+
+  /* Decorative grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.83 0 0 0 0 0.69 0 0 0 0 0.22 0 0 0 0.12 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+  }
+
+  h1,h2,h3,h4 { font-family: 'Fraunces', serif; font-weight: 600; letter-spacing: -0.01em; }
+  .serif { font-family: 'Cormorant Garamond', serif; }
+
+  /* ---------- Top bar ---------- */
+  header.topbar {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    background: rgba(6,17,57,0.72);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; cursor: pointer; user-select: none;}
+  /* Premium crest — shield + halo (not a flat circle) */
+  .brand-shield-wrap {
+    position: relative;
+    width: 48px; height: 54px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 4px 18px rgba(212,175,55,0.45));
+  }
+  .brand-shield-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(140deg, var(--gold-light), var(--gold) 45%, var(--gold-deep));
+    clip-path: polygon(50% 0%, 100% 12%, 100% 62%, 50% 100%, 0% 62%, 0% 12%);
+    opacity: 0.95;
+  }
+  .brand-shield {
+    position: absolute;
+    inset: 2px;
+    background:
+      radial-gradient(circle at 35% 18%, rgba(212,175,55,0.16), transparent 45%),
+      linear-gradient(165deg, #243d9e 0%, var(--royal) 45%, var(--royal-deep) 100%);
+    clip-path: polygon(50% 0%, 100% 12%, 100% 62%, 50% 100%, 0% 62%, 0% 12%);
+    display: grid;
+    place-items: center;
+  }
+  .brand-shield .monogram {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    background: linear-gradient(180deg, var(--gold-light) 15%, var(--gold) 50%, var(--gold-deep));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.12);
+    position: relative; z-index: 1;
+  }
+  .brand-shield-fleur {
+    position: absolute;
+    bottom: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px; height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, transparent, rgba(212,175,55,0.55), transparent);
+    opacity: 0.9;
+    z-index: 2;
+  }
+  .brand-shield--lg { width: 56px; height: 62px; }
+  .brand-shield--lg .brand-shield { inset: 2px; }
+  .brand-shield--lg .monogram { font-size: 24px; }
+
+  body.gate-active { overflow: hidden; }
+  .app-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background:
+      radial-gradient(ellipse at 40% 0%, rgba(30,58,158,0.5) 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 100%, rgba(15,123,74,0.2) 0%, transparent 50%),
+      linear-gradient(180deg, #061139 0%, #030826 100%);
+    animation: fadeIn 0.5s ease;
+  }
+  .app-gate[hidden] { display: none !important; }
+  .app-gate-card {
+    width: 100%;
+    max-width: 440px;
+    background: linear-gradient(165deg, rgba(30,58,158,0.42), rgba(6,17,57,0.92));
+    border: 1px solid var(--gold);
+    border-radius: 22px;
+    padding: 36px 32px 32px;
+    box-shadow: 0 36px 100px rgba(0,0,0,0.55);
+    position: relative;
+  }
+  .app-gate-card .crest-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .app-gate-note {
+    text-align: center;
+    font-size: 12px;
+    color: rgba(253,248,236,0.55);
+    line-height: 1.5;
+    margin-top: 18px;
+  }
+  .brand-text { line-height: 1; }
+  .brand-text .name {
+    font-family: 'Fraunces', serif;
+    font-size: 20px; font-weight: 800;
+    letter-spacing: 0.18em;
+    background: linear-gradient(90deg, var(--gold-light), var(--gold) 60%, var(--gold-light));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .brand-text .tag {
+    display: block; margin-top: 4px;
+    font-size: 10px; letter-spacing: 0.3em;
+    color: var(--muted); text-transform: uppercase;
+  }
+
+  nav.main-nav {
+    display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: center;
+    flex: 1;
+    padding: 0 12px;
+  }
+  nav.main-nav a.about-link:hover { color: var(--gold-light) !important; background: rgba(212,175,55,0.08); border-radius: 8px; }
+  nav.main-nav button {
+    background: transparent; border: none; color: var(--muted);
+    padding: 8px 14px; border-radius: 8px; cursor: pointer;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: all 0.25s ease;
+  }
+  nav.main-nav button:hover { color: var(--gold-light); background: rgba(212,175,55,0.08); }
+  nav.main-nav button.active {
+    color: var(--gold-light);
+    background: rgba(212,175,55,0.12);
+    box-shadow: inset 0 -2px 0 var(--gold);
+  }
+
+  .user-pill {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 14px 6px 6px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(212,175,55,0.06);
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .user-pill:hover { background: rgba(212,175,55,0.14); }
+  .avatar {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
+    display: grid; place-items: center;
+    font-weight: 700; color: var(--ivory); font-size: 12px;
+  }
+  .user-pill .who { font-size: 13px; }
+
+  /* ---------- Main container ---------- */
+  main { position: relative; z-index: 2; padding: 40px 32px 80px; max-width: 1400px; margin: 0 auto; }
+
+  /* View system */
+  .view { display: none; animation: fadeUp 0.6s cubic-bezier(.2,.8,.2,1); }
+  .view.active { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- HERO / HOME ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.22fr) minmax(200px, min(38vw, 400px));
+    gap: clamp(20px, 3.2vw, 40px);
+    align-items: center;
+    padding: 60px 0 80px;
+    position: relative;
+  }
+  .hero .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--gold);
+    padding: 8px 16px; border-radius: 999px;
+    border: 1px solid var(--line); background: rgba(212,175,55,0.05);
+    margin-bottom: 28px;
+  }
+  .kicker .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--emerald-glow); box-shadow: 0 0 10px var(--emerald-glow);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.3; } }
+
+  .hero h1 {
+    font-size: clamp(42px, 6vw, 78px);
+    line-height: 0.98;
+    font-weight: 400;
+    margin-bottom: 24px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    background: linear-gradient(90deg, var(--gold-light), var(--gold) 50%, var(--gold-deep));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero .lede {
+    font-size: 17px; line-height: 1.65; color: var(--muted);
+    max-width: 520px; margin-bottom: 36px;
+  }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; font-weight: 600; letter-spacing: 0.06em;
+    padding: 14px 26px; border-radius: 10px; cursor: pointer;
+    border: none; transition: all 0.3s cubic-bezier(.2,.8,.2,1);
+    text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-deep) 100%);
+    color: var(--royal-deep);
+    box-shadow: 0 8px 30px rgba(212,175,55,0.3), inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+  .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(212,175,55,0.45); }
+  .btn-ghost {
+    background: transparent; color: var(--ivory);
+    border: 1px solid var(--line);
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold-light); }
+  .btn-emerald {
+    background: linear-gradient(135deg, var(--emerald-light), var(--emerald));
+    color: var(--ivory);
+    box-shadow: 0 8px 24px rgba(15,123,74,0.35);
+  }
+  .btn-emerald:hover { transform: translateY(-2px); }
+
+  /* Hero visual — crest medallion (anchored near copy, not viewport edge) */
+  .hero-visual {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    max-width: min(400px, 100%);
+    margin-left: 0;
+    margin-right: auto;
+    justify-self: start;
+  }
+  .medallion {
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(212,175,55,0.25), transparent 60%),
+      radial-gradient(circle at 70% 70%, rgba(15,123,74,0.3), transparent 60%),
+      linear-gradient(135deg, var(--royal-light), var(--royal) 70%);
+    box-shadow:
+      0 40px 100px rgba(212,175,55,0.25),
+      inset 0 0 0 2px var(--gold),
+      inset 0 0 0 14px rgba(212,175,55,0.05),
+      inset 0 0 0 15px var(--gold);
+    display: grid; place-items: center;
+    animation: float 8s ease-in-out infinite;
+  }
+  @keyframes float { 50% { transform: translateY(-14px); } }
+  .medallion-inner {
+    width: 82%; aspect-ratio: 1 / 1; border-radius: 50%;
+    border: 1px solid rgba(212,175,55,0.3);
+    display: grid; place-items: center;
+    background: rgba(6,17,57,0.4);
+    position: relative;
+  }
+  .medallion-inner::before, .medallion-inner::after {
+    content: ''; position: absolute; border: 1px dashed rgba(212,175,55,0.2);
+    border-radius: 50%;
+  }
+  .medallion-inner::before { inset: 14px; }
+  .medallion-inner::after { inset: 30px; border-style: solid; border-color: rgba(212,175,55,0.12); }
+  .medallion-g {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(88px, min(16vw, 18vh), 160px);
+    font-weight: 800;
+    font-style: italic;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-deep));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    position: relative; z-index: 2;
+  }
+  .orbit-word {
+    position: absolute;
+    font-size: 10px; letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .orbit-word.top    { top: 24px; left: 50%; transform: translateX(-50%); }
+  .orbit-word.bottom { bottom: 24px; left: 50%; transform: translateX(-50%); }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    margin-top: 20px; padding-top: 40px;
+    border-top: 1px solid var(--line);
+  }
+  .stat .n {
+    font-family: 'Fraunces', serif;
+    font-size: 36px; font-weight: 700;
+    background: linear-gradient(180deg, var(--gold-light), var(--gold-deep));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .stat .l { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+
+  /* ---------- Section scaffolding ---------- */
+  section.block { margin-top: 80px; }
+  .section-header { margin-bottom: 40px; }
+  .section-header .eyebrow {
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  .section-header h2 {
+    font-size: clamp(30px, 4vw, 48px); line-height: 1.05;
+    font-weight: 500;
+  }
+  .section-header p { color: var(--muted); margin-top: 14px; max-width: 640px; font-size: 16px; line-height: 1.6; }
+
+  /* ---------- Curriculum grid ---------- */
+  .curriculum-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .curriculum-card {
+    background: linear-gradient(155deg, rgba(30,58,158,0.35), rgba(6,17,57,0.35));
+    border: 1px solid var(--line);
+    border-radius: 16px; padding: 28px 24px;
+    position: relative; overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(.2,.8,.2,1);
+  }
+  .curriculum-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 0% 0%, rgba(212,175,55,0.12), transparent 50%);
+    opacity: 0; transition: opacity 0.4s ease;
+  }
+  .curriculum-card:hover::before { opacity: 1; }
+  .curriculum-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold);
+    box-shadow: 0 20px 60px rgba(212,175,55,0.15);
+  }
+  .curriculum-card .badge {
+    display: inline-block;
+    padding: 4px 12px; border-radius: 999px;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    background: rgba(15,123,74,0.25);
+    color: var(--emerald-glow);
+    border: 1px solid rgba(46,224,146,0.25);
+    margin-bottom: 20px;
+  }
+  .curriculum-card h3 { font-size: 28px; margin-bottom: 8px; }
+  .curriculum-card .range { color: var(--muted); font-size: 13px; margin-bottom: 22px; }
+  .curriculum-card .subjects {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding-top: 16px; border-top: 1px dashed var(--line);
+  }
+  .curriculum-card .subjects span {
+    font-size: 11px; padding: 4px 10px;
+    border: 1px solid var(--line); border-radius: 6px;
+    color: var(--ivory);
+  }
+
+  /* ---------- Feature showcase ---------- */
+  .feature-showcase {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .feature-card {
+    background: rgba(6,17,57,0.4);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px 24px;
+    transition: all 0.3s ease;
+  }
+  .feature-card:hover { border-color: rgba(212,175,55,0.4); background: rgba(6,17,57,0.65); }
+  .feature-ico {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: linear-gradient(135deg, rgba(212,175,55,0.18), rgba(212,175,55,0.05));
+    border: 1px solid rgba(212,175,55,0.3);
+    display: grid; place-items: center;
+    color: var(--gold-light); font-size: 20px;
+    margin-bottom: 18px;
+  }
+  .feature-card h4 { font-family: 'Fraunces', serif; font-size: 20px; margin-bottom: 8px; }
+  .feature-card p { color: var(--muted); font-size: 14px; line-height: 1.6; }
+
+  /* ---------- TUTOR (Sir Gideon) ---------- */
+  .tutor-wrap {
+    display: grid; grid-template-columns: 280px 1fr; gap: 24px;
+    min-height: 600px;
+  }
+  .tutor-sidebar {
+    background: rgba(6,17,57,0.5);
+    border: 1px solid var(--line);
+    border-radius: 16px; padding: 24px;
+    height: fit-content;
+    position: sticky; top: 96px;
+  }
+  .tutor-profile { text-align: center; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+  .tutor-avatar {
+    width: 90px; height: 90px; border-radius: 50%;
+    margin: 0 auto 14px;
+    background:
+      radial-gradient(circle at 30% 30%, var(--gold-light), var(--gold) 60%, var(--gold-deep));
+    display: grid; place-items: center;
+    font-family: 'Fraunces', serif; font-size: 36px; font-weight: 700;
+    color: var(--royal-deep);
+    box-shadow: 0 0 40px rgba(212,175,55,0.45), inset 0 0 0 3px rgba(6,17,57,0.25);
+    position: relative;
+  }
+  .tutor-avatar::after {
+    content: ''; position: absolute; bottom: 4px; right: 4px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--emerald-glow);
+    border: 3px solid var(--royal-deep);
+  }
+  .tutor-profile .title { font-family: 'Fraunces', serif; font-size: 22px; }
+  .tutor-profile .subtitle {
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-top: 6px;
+  }
+  .tutor-subjects { margin-top: 20px; }
+  .tutor-subjects h5 {
+    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 12px; font-weight: 500;
+  }
+  .subject-pill {
+    display: block; width: 100%; text-align: left;
+    padding: 10px 14px; margin-bottom: 6px;
+    background: transparent; border: 1px solid var(--line);
+    border-radius: 8px; color: var(--ivory); cursor: pointer;
+    font-family: 'Inter', sans-serif; font-size: 13px;
+    transition: all 0.2s ease;
+  }
+  .subject-pill:hover { background: rgba(212,175,55,0.08); border-color: var(--gold); }
+  .subject-pill.active {
+    background: linear-gradient(135deg, rgba(15,123,74,0.3), rgba(15,123,74,0.15));
+    border-color: var(--emerald-light);
+    color: var(--emerald-glow);
+  }
+
+  .tutor-chat {
+    background: rgba(6,17,57,0.5);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .chat-head {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(6,17,57,0.4);
+  }
+  .chat-head .current-subject {
+    font-family: 'Fraunces', serif; font-size: 18px;
+  }
+  .chat-head .level-chip {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 999px;
+    background: rgba(212,175,55,0.12); color: var(--gold-light);
+    border: 1px solid var(--line);
+  }
+
+  .chat-messages {
+    flex: 1; overflow-y: auto;
+    padding: 24px; display: flex; flex-direction: column; gap: 18px;
+    min-height: 420px; max-height: 55vh;
+  }
+  .chat-messages::-webkit-scrollbar { width: 6px; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+
+  .msg { display: flex; gap: 12px; max-width: 85%; animation: fadeUp 0.4s ease; }
+  .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+  .msg-avatar {
+    flex-shrink: 0;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: grid; place-items: center; font-size: 14px; font-weight: 700;
+    font-family: 'Fraunces', serif;
+  }
+  .msg.gideon .msg-avatar {
+    background: radial-gradient(circle at 30% 30%, var(--gold-light), var(--gold));
+    color: var(--royal-deep);
+    box-shadow: 0 0 16px rgba(212,175,55,0.35);
+  }
+  .msg.user .msg-avatar {
+    background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
+    color: var(--ivory);
+  }
+  .msg-bubble {
+    padding: 14px 18px; border-radius: 14px;
+    font-size: 14.5px; line-height: 1.6;
+    white-space: pre-wrap;
+  }
+  .msg.gideon .msg-bubble {
+    background: rgba(30,58,158,0.25);
+    border: 1px solid var(--line);
+    border-top-left-radius: 4px;
+  }
+  .msg.user .msg-bubble {
+    background: linear-gradient(135deg, rgba(15,123,74,0.35), rgba(15,123,74,0.2));
+    border: 1px solid rgba(46,224,146,0.2);
+    border-top-right-radius: 4px;
+  }
+  .msg .typing { display: inline-flex; gap: 4px; }
+  .msg .typing span {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--gold-light);
+    animation: bounce 1.4s infinite ease-in-out;
+  }
+  .msg .typing span:nth-child(2) { animation-delay: 0.15s; }
+  .msg .typing span:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes bounce {
+    0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  .chat-input {
+    padding: 16px 20px;
+    border-top: 1px solid var(--line);
+    background: rgba(6,17,57,0.4);
+    display: flex; gap: 10px; align-items: flex-end;
+  }
+  .chat-input textarea {
+    flex: 1; resize: none;
+    background: rgba(253,248,236,0.04);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: var(--ivory);
+    padding: 12px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; line-height: 1.5;
+    min-height: 48px; max-height: 140px;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .chat-input textarea:focus { border-color: var(--gold); }
+  .chat-input textarea::placeholder { color: rgba(253,248,236,0.4); }
+  .send-btn {
+    width: 48px; height: 48px; border-radius: 10px;
+    border: none; cursor: pointer;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-deep));
+    color: var(--royal-deep); font-size: 18px;
+    display: grid; place-items: center;
+    transition: transform 0.2s ease;
+  }
+  .send-btn:hover { transform: scale(1.05); }
+  .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .suggestion-chips {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding: 0 20px 14px;
+  }
+  .sug-chip {
+    font-size: 12px; padding: 6px 12px; border-radius: 999px;
+    background: rgba(212,175,55,0.08); border: 1px solid var(--line);
+    color: var(--gold-light); cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .sug-chip:hover { background: rgba(212,175,55,0.18); }
+
+  /* ---------- NOTES / LIBRARY ---------- */
+  .library-tabs { display: flex; gap: 4px; margin-bottom: 30px; border-bottom: 1px solid var(--line); }
+  .lib-tab {
+    background: transparent; border: none;
+    color: var(--muted); cursor: pointer;
+    padding: 12px 20px; font-size: 13px; font-weight: 500;
+    letter-spacing: 0.05em;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+  .lib-tab:hover { color: var(--ivory); }
+  .lib-tab.active { color: var(--gold-light); }
+  .lib-tab.active::after {
+    content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+    height: 2px; background: var(--gold);
+  }
+
+  .note-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+  .note-card {
+    background: linear-gradient(165deg, rgba(30,58,158,0.3), rgba(6,17,57,0.4));
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .note-card:hover { transform: translateY(-3px); border-color: var(--gold); }
+  .note-card .note-tag {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--emerald-glow); margin-bottom: 10px;
+  }
+  .note-card h4 { font-size: 18px; margin-bottom: 6px; }
+  .note-card .meta { font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+  .note-card .progress {
+    height: 4px; background: rgba(253,248,236,0.08); border-radius: 2px; overflow: hidden;
+  }
+  .note-card .progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--emerald), var(--emerald-light));
+  }
+  .note-card .note-foot {
+    margin-top: 10px; display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--muted);
+  }
+
+  /* ---------- VIDEOS ---------- */
+  .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+  .video-card {
+    background: rgba(6,17,57,0.4);
+    border: 1px solid var(--line);
+    border-radius: 14px; overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .video-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+  .video-thumb {
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, var(--royal-light), var(--emerald));
+    position: relative;
+    display: grid; place-items: center;
+  }
+  .video-thumb::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(212,175,55,0.2), transparent 60%);
+  }
+  .play-btn {
+    width: 54px; height: 54px; border-radius: 50%;
+    background: rgba(212,175,55,0.95); color: var(--royal-deep);
+    display: grid; place-items: center; font-size: 22px;
+    box-shadow: 0 0 30px rgba(212,175,55,0.5);
+    position: relative; z-index: 2;
+  }
+  .duration-badge {
+    position: absolute; bottom: 10px; right: 10px;
+    background: rgba(6,17,57,0.85); color: var(--ivory);
+    padding: 3px 8px; border-radius: 4px;
+    font-size: 11px; font-weight: 600;
+    z-index: 2;
+  }
+  .video-body { padding: 16px 18px; }
+  .video-body h4 { font-family: 'Fraunces', serif; font-size: 16px; margin-bottom: 4px; }
+  .video-body .meta { font-size: 12px; color: var(--muted); }
+  .download-line {
+    margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px;
+  }
+  .dl-btn {
+    font-size: 11px; padding: 4px 10px; border-radius: 6px;
+    background: rgba(15,123,74,0.2); color: var(--emerald-glow);
+    border: 1px solid rgba(46,224,146,0.25);
+    cursor: pointer; letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .dl-btn:hover { background: rgba(15,123,74,0.35); }
+
+  /* ---------- COMMUNITY ---------- */
+  .community-wrap { display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+  .community-main { display: flex; flex-direction: column; gap: 18px; }
+  .post-composer {
+    background: rgba(6,17,57,0.5); border: 1px solid var(--line);
+    border-radius: 14px; padding: 20px;
+  }
+  .post-composer textarea {
+    width: 100%; background: rgba(253,248,236,0.03);
+    border: 1px solid var(--line); border-radius: 10px;
+    color: var(--ivory); padding: 14px;
+    font-family: 'Inter', sans-serif; font-size: 14px;
+    resize: none; min-height: 80px; outline: none;
+  }
+  .post-composer textarea:focus { border-color: var(--gold); }
+  .composer-actions {
+    margin-top: 12px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .composer-tags { display: flex; gap: 6px; }
+  .c-tag {
+    font-size: 11px; padding: 4px 10px; border-radius: 999px;
+    background: rgba(212,175,55,0.08); border: 1px solid var(--line);
+    color: var(--gold-light); cursor: pointer;
+  }
+  .c-tag:hover, .c-tag.selected { background: rgba(212,175,55,0.2); }
+
+  .post {
+    background: rgba(6,17,57,0.4);
+    border: 1px solid var(--line);
+    border-radius: 14px; padding: 20px;
+    animation: fadeUp 0.5s ease;
+  }
+  .post-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .post-head .avatar { width: 36px; height: 36px; font-size: 13px; }
+  .post-head .info { flex: 1; }
+  .post-head .name { font-weight: 600; font-size: 14px; }
+  .post-head .time { font-size: 12px; color: var(--muted); }
+  .post-tag {
+    font-size: 10px; padding: 3px 8px; border-radius: 4px;
+    background: rgba(15,123,74,0.2); color: var(--emerald-glow);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .post-body { font-size: 14.5px; line-height: 1.6; color: var(--ivory); }
+  .post-actions {
+    margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line);
+    display: flex; gap: 18px;
+  }
+  .pa-btn {
+    background: transparent; border: none; color: var(--muted);
+    font-family: 'Inter', sans-serif; font-size: 13px;
+    cursor: pointer; display: flex; align-items: center; gap: 6px;
+    transition: color 0.2s ease;
+  }
+  .pa-btn:hover { color: var(--gold-light); }
+
+  .community-side { display: flex; flex-direction: column; gap: 18px; }
+  .side-card {
+    background: rgba(6,17,57,0.4); border: 1px solid var(--line);
+    border-radius: 14px; padding: 20px;
+  }
+  .side-card h5 {
+    font-family: 'Fraunces', serif; font-size: 16px; margin-bottom: 14px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--line);
+  }
+  .group-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px dashed var(--line);
+    cursor: pointer;
+  }
+  .group-item:last-child { border-bottom: none; }
+  .group-item:hover .group-name { color: var(--gold-light); }
+  .group-name { font-size: 13px; font-weight: 500; transition: color 0.2s ease; }
+  .group-count { font-size: 11px; color: var(--muted); }
+
+  /* ---------- PARENT ---------- */
+  .parent-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 28px; }
+  .kpi {
+    background: linear-gradient(165deg, rgba(30,58,158,0.35), rgba(6,17,57,0.5));
+    border: 1px solid var(--line); border-radius: 14px; padding: 24px;
+  }
+  .kpi .label { font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
+  .kpi .val {
+    font-family: 'Fraunces', serif; font-size: 40px; font-weight: 700;
+    margin-top: 10px;
+    background: linear-gradient(180deg, var(--gold-light), var(--gold-deep));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .kpi .trend { font-size: 12px; color: var(--emerald-glow); margin-top: 6px; }
+
+  .subject-progress { background: rgba(6,17,57,0.4); border: 1px solid var(--line); border-radius: 14px; padding: 24px; }
+  .subject-progress h4 { margin-bottom: 20px; font-family: 'Fraunces', serif; font-size: 20px; }
+  .subject-row {
+    display: grid; grid-template-columns: 140px 1fr 60px;
+    align-items: center; gap: 16px; margin-bottom: 14px;
+  }
+  .subject-row .name { font-size: 14px; font-weight: 500; }
+  .subject-row .bar {
+    height: 8px; background: rgba(253,248,236,0.06); border-radius: 4px; overflow: hidden;
+  }
+  .subject-row .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--emerald), var(--gold));
+    border-radius: 4px;
+    transition: width 1s cubic-bezier(.2,.8,.2,1);
+  }
+  .subject-row .pct { text-align: right; font-weight: 600; font-size: 14px; color: var(--gold-light); }
+
+  /* ---------- STORE ---------- */
+  .store-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+  .store-card {
+    background: rgba(6,17,57,0.4); border: 1px solid var(--line);
+    border-radius: 14px; overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .store-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+  .store-cover {
+    aspect-ratio: 3/4;
+    background: linear-gradient(165deg, var(--royal-light), var(--emerald));
+    position: relative; display: grid; place-items: center;
+    padding: 20px;
+  }
+  .store-cover-inner {
+    text-align: center; color: var(--gold-light);
+    border: 1px solid var(--gold); padding: 30px 20px;
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .store-cover-inner h5 {
+    font-family: 'Fraunces', serif; font-size: 22px; line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .store-cover-inner .grade {
+    font-size: 10px; letter-spacing: 0.3em;
+  }
+  .store-body { padding: 16px 18px; }
+  .store-body h6 { font-family: 'Fraunces', serif; font-size: 16px; margin-bottom: 4px; }
+  .store-body .desc { font-size: 12px; color: var(--muted); margin-bottom: 12px; line-height: 1.5; }
+  .store-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 10px; border-top: 1px dashed var(--line);
+  }
+  .price {
+    font-family: 'Fraunces', serif; font-weight: 700; font-size: 18px;
+    color: var(--gold-light);
+  }
+
+  /* ---------- PRICING ---------- */
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .plan {
+    background: rgba(6,17,57,0.5);
+    border: 1px solid var(--line);
+    border-radius: 18px; padding: 36px 30px;
+    position: relative; overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .plan.featured {
+    background: linear-gradient(165deg, rgba(212,175,55,0.12), rgba(6,17,57,0.7));
+    border: 1px solid var(--gold);
+    transform: scale(1.02);
+    box-shadow: 0 30px 80px rgba(212,175,55,0.2);
+  }
+  .plan.featured::before {
+    content: 'MOST CHOSEN';
+    position: absolute; top: 20px; right: -36px;
+    background: var(--gold); color: var(--royal-deep);
+    padding: 4px 40px; transform: rotate(45deg);
+    font-size: 10px; letter-spacing: 0.2em; font-weight: 700;
+  }
+  .plan h3 { font-size: 26px; margin-bottom: 4px; }
+  .plan .tier-tag { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+  .plan .price-big {
+    font-family: 'Fraunces', serif; font-weight: 700;
+    font-size: 52px; line-height: 1;
+    display: flex; align-items: baseline; gap: 6px;
+    margin-bottom: 4px;
+  }
+  .plan .price-big .cur { font-size: 20px; color: var(--muted); font-weight: 500; }
+  .plan .price-big .per { font-size: 14px; color: var(--muted); font-weight: 400; }
+  .plan .blurb { color: var(--muted); font-size: 13px; margin-bottom: 24px; line-height: 1.6; }
+  .plan ul { list-style: none; margin-bottom: 28px; }
+  .plan li {
+    font-size: 13.5px; padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+    display: flex; align-items: start; gap: 10px;
+  }
+  .plan li::before {
+    content: '✦'; color: var(--gold); flex-shrink: 0;
+  }
+  .plan li.off { color: var(--muted); text-decoration: line-through; opacity: 0.5; }
+  .plan li.off::before { content: '—'; color: var(--muted); }
+  .plan button { width: 100%; }
+
+  /* ---------- AUTH MODAL ---------- */
+  .modal-backdrop {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(3,8,38,0.85);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .modal-backdrop.show { display: flex; }
+  .modal {
+    background: linear-gradient(165deg, rgba(30,58,158,0.4), rgba(6,17,57,0.95));
+    border: 1px solid var(--gold);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 460px; width: 100%;
+    position: relative;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.5);
+  }
+  .modal .close {
+    position: absolute; top: 16px; right: 16px;
+    background: transparent; border: none;
+    color: var(--muted); cursor: pointer; font-size: 22px;
+  }
+  .modal .close:hover { color: var(--gold); }
+  .modal-head { text-align: center; margin-bottom: 30px; }
+  .modal-head .brand-shield-wrap { margin: 0 auto 12px; }
+  .modal-head h2 { font-family: 'Fraunces', serif; font-size: 28px; margin-bottom: 6px; }
+  .modal-head p { color: var(--muted); font-size: 14px; }
+
+  .auth-tabs { display: flex; margin-bottom: 26px; background: rgba(253,248,236,0.04); border-radius: 10px; padding: 4px; }
+  .auth-tab {
+    flex: 1; background: transparent; border: none;
+    color: var(--muted); cursor: pointer;
+    padding: 10px; border-radius: 8px;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: all 0.25s ease;
+  }
+  .auth-tab.active { background: var(--gold); color: var(--royal-deep); font-weight: 700; }
+
+  .field { margin-bottom: 16px; }
+  .field label {
+    display: block; font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+  }
+  .field input, .field select {
+    width: 100%; padding: 12px 14px;
+    background: rgba(253,248,236,0.04);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--ivory);
+    font-family: 'Inter', sans-serif; font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .field input:focus, .field select:focus { border-color: var(--gold); }
+  .field select option { background: var(--royal-deep); }
+
+  .auth-alt-methods { display: flex; gap: 10px; margin-top: 16px; }
+  .auth-alt-methods button {
+    flex: 1; padding: 12px;
+    background: rgba(253,248,236,0.04);
+    border: 1px solid var(--line);
+    color: var(--ivory);
+    border-radius: 8px; cursor: pointer;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all 0.2s ease;
+  }
+  .auth-alt-methods button:hover { border-color: var(--gold); }
+  .auth-divider {
+    text-align: center; margin: 20px 0; position: relative;
+    color: var(--muted); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  }
+  .auth-divider::before, .auth-divider::after {
+    content: ''; position: absolute; top: 50%; width: 35%; height: 1px; background: var(--line);
+  }
+  .auth-divider::before { left: 0; }
+  .auth-divider::after { right: 0; }
+
+  /* ---------- Payment modal ---------- */
+  .pay-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+  .pay-option {
+    padding: 14px; border-radius: 10px;
+    background: rgba(253,248,236,0.04); border: 1px solid var(--line);
+    cursor: pointer; transition: all 0.2s ease;
+    text-align: center;
+    font-size: 13px; font-weight: 500;
+  }
+  .pay-option:hover, .pay-option.selected {
+    border-color: var(--gold); background: rgba(212,175,55,0.1);
+    color: var(--gold-light);
+  }
+
+  /* ---------- Toast ---------- */
+  .toast {
+    position: fixed; bottom: 30px; right: 30px; z-index: 200;
+    padding: 14px 22px;
+    background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
+    color: var(--ivory);
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(15,123,74,0.4);
+    transform: translateY(120%); opacity: 0;
+    transition: all 0.4s cubic-bezier(.2,.8,.2,1);
+    font-size: 14px; font-weight: 500;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.gold { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--royal-deep); }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1200px) {
+    .hero {
+      grid-template-columns: minmax(0, 1fr) minmax(180px, min(42vw, 360px));
+      gap: clamp(16px, 3vw, 32px);
+    }
+    .hero-visual { max-width: min(340px, 100%); }
+  }
+
+  @media (max-width: 980px) {
+    header.topbar { padding: 12px 18px; flex-wrap: wrap; row-gap: 10px; }
+    nav.main-nav { display: none; }
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      padding: clamp(22px, 5vw, 36px) 0 clamp(36px, 8vw, 50px);
+    }
+    .hero-visual {
+      max-width: min(300px, 86vw);
+      margin-left: auto;
+      margin-right: auto;
+      justify-self: center;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 9.2vw, 52px);
+    }
+    .hero .lede { font-size: clamp(15px, 4vw, 17px); }
+    .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; }
+    .hero-stats .stat .n { font-size: clamp(28px, 8vw, 36px); }
+    .tutor-wrap, .community-wrap { grid-template-columns: 1fr; }
+    .tutor-sidebar { position: static; }
+    .feature-showcase, .pricing-grid, .parent-grid { grid-template-columns: 1fr; }
+    main { padding: 24px clamp(14px, 4vw, 16px) 60px; }
+    .plan.featured { transform: none; }
+  }
+
+  @media (max-width: 640px) {
+    header.topbar { padding: 10px 14px; }
+    .brand-text .name { font-size: clamp(15px, 4.2vw, 19px); letter-spacing: 0.12em; }
+    .hero .kicker { font-size: 9px; letter-spacing: 0.2em; padding: 6px 12px; }
+    .hero-ctas { flex-direction: column; align-items: stretch; }
+    .hero-ctas .btn { width: 100%; justify-content: center; min-height: 48px; }
+    .hero-visual { max-width: min(280px, 82vw); }
+    .medallion-g { font-size: clamp(76px, 34vw, 120px); }
+    .orbit-word { font-size: 7px; letter-spacing: 0.18em; }
+    .orbit-word.top { top: 14px; }
+    .orbit-word.bottom { bottom: 14px; }
+    .toast { left: 16px; right: 16px; bottom: 20px; }
+  }
+
+  @media (max-width: 400px) {
+    .hero-stats { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .stat .l { font-size: 9px; letter-spacing: 0.18em; }
+  }
+
+  /* mobile nav drawer */
+  .mobile-nav-btn { display: none; background: transparent; border: 1px solid var(--line); color: var(--gold-light); padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+  @media (max-width: 980px) { .mobile-nav-btn { display: block; } }
+  .mobile-drawer {
+    display: none;
+    position: fixed; inset: 0 0 0 auto;
+    width: 280px; background: var(--royal-deep);
+    border-left: 1px solid var(--gold);
+    z-index: 90; padding: 80px 20px 20px;
+    transform: translateX(100%); transition: transform 0.3s ease;
+  }
+  .mobile-drawer.open { display: block; transform: translateX(0); }
+  .mobile-drawer button {
+    display: block; width: 100%; text-align: left;
+    background: transparent; border: none;
+    color: var(--ivory); padding: 14px;
+    font-family: 'Inter', sans-serif; font-size: 15px;
+    border-bottom: 1px dashed var(--line); cursor: pointer;
+  }
+  .mobile-drawer button:hover { color: var(--gold-light); }
+</style>
+</head>
+<body class="gate-active">
+
+<!-- ======================== LOGIN GATE (any credentials accepted) ======================== -->
+<div id="appGate" class="app-gate" aria-modal="true" role="dialog" aria-labelledby="gateTitle">
+  <div class="app-gate-card">
+    <div class="crest-row">
+      <div class="brand-shield-wrap brand-shield--lg" aria-hidden="true">
+        <div class="brand-shield">
+          <span class="monogram">G</span>
+          <span class="brand-shield-fleur"></span>
+        </div>
+      </div>
+      <div class="brand-text" style="text-align:center;">
+        <div class="name" style="letter-spacing:0.16em;font-size:18px;">GIDMAS PRIME</div>
+        <div class="tag" style="margin-top:6px;">Your child's best friend</div>
+      </div>
+    </div>
+    <h2 id="gateTitle" style="font-family:'Fraunces',serif;font-weight:600;font-size:24px;text-align:center;margin-bottom:8px;">Enter the academy</h2>
+    <p style="text-align:center;color:var(--muted);font-size:14px;line-height:1.55;margin-bottom:22px;">Sign in once to open the library, tutor, and community. This demo accepts any email and password — nothing is validated or sent online.</p>
+    <div class="auth-tabs" style="margin-bottom:22px;">
+      <button type="button" class="auth-tab gate-tab active" data-gate-tab="login">Sign in</button>
+      <button type="button" class="auth-tab gate-tab" data-gate-tab="signup">Sign up</button>
+    </div>
+    <div id="gateLoginPane">
+      <div class="field">
+        <label>Email</label>
+        <input type="text" id="gateEmailLogin" autocomplete="username" placeholder="anything@school.bw" />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="gatePassLogin" autocomplete="current-password" placeholder="anything works" />
+      </div>
+      <button type="button" class="btn btn-gold" style="width:100%;margin-top:4px;" onclick="handleGateLogin()">Sign in & Continue</button>
+      <div class="auth-divider">or continue with</div>
+      <div class="auth-alt-methods">
+        <button type="button" onclick="handleGateShortcut('whatsapp')">WhatsApp</button>
+        <button type="button" onclick="handleGateShortcut('google')">Google</button>
+      </div>
+    </div>
+    <div id="gateSignupPane" style="display:none;">
+      <div class="field">
+        <label>Full name (optional)</label>
+        <input type="text" id="gateNameUp" placeholder="Your name" />
+      </div>
+      <div class="field">
+        <label>Email (optional)</label>
+        <input type="text" id="gateEmailUp" placeholder="you@example.com" />
+      </div>
+      <div class="field">
+        <label>I am a…</label>
+        <select id="gateRoleUp">
+          <option>Student</option>
+          <option>Parent / Guardian</option>
+          <option>Teacher</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Password (optional)</label>
+        <input type="password" id="gatePassUp" placeholder="any letters" />
+      </div>
+      <button type="button" class="btn btn-gold" style="width:100%;margin-top:4px;" onclick="handleGateSignup()">Create & Continue</button>
+    </div>
+    <p class="app-gate-note"><a href="about.html" style="color:var(--gold-light);text-decoration:none;">What is GIDMAS PRIME?</a> · <a href="index.html" style="color:rgba(253,248,236,0.45);text-decoration:none;">Site hub</a></p>
+  </div>
+</div>
+
+<div id="academyShell" hidden>
+
+<!-- ======================== HEADER ======================== -->
+<header class="topbar">
+  <div class="brand" onclick="go('home')">
+    <div class="brand-shield-wrap" aria-hidden="true">
+      <div class="brand-shield">
+        <span class="monogram">G</span>
+        <span class="brand-shield-fleur"></span>
+      </div>
+    </div>
+    <div class="brand-text">
+      <div class="name">GIDMAS PRIME</div>
+      <div class="tag">Your child's best friend</div>
+    </div>
+  </div>
+  <nav class="main-nav" id="mainNav">
+    <button data-view="home" class="active">Home</button>
+    <button data-view="tutor">Sir Gideon</button>
+    <button data-view="library">Library</button>
+    <button data-view="videos">Lessons</button>
+    <button data-view="community">Community</button>
+    <button data-view="parent">Parent Dashboard</button>
+    <button data-view="store">Store</button>
+    <button data-view="pricing">Membership</button>
+    <a href="about.html" class="about-link" style="color:var(--muted); font-size:13px; font-weight:500; text-decoration:none; letter-spacing:0.06em; padding:8px 14px;">About</a>
+  </nav>
+  <div style="display:flex; gap:10px; align-items:center;">
+    <a href="index.html" style="color:var(--muted); font-size:12px; font-weight:500; text-decoration:none; letter-spacing:0.06em; padding:8px 10px; border-radius:8px; border:1px solid var(--line);">Home</a>
+    <button class="mobile-nav-btn" onclick="toggleDrawer()">☰</button>
+    <div class="user-pill" id="userPill" onclick="openAuth()" title="Account and sign out">
+      <div class="avatar" id="userAvatar">GS</div>
+      <div class="who" id="userWho">Guest</div>
+    </div>
+  </div>
+</header>
+
+<!-- mobile drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <button type="button" onclick="location.href='index.html'" style="color:var(--gold-light); margin-bottom:8px;">⌂ Site home</button>
+  <button type="button" onclick="location.href='about.html'" style="color:var(--gold-light);">About GIDMAS</button>
+  <button data-view="home">Home</button>
+  <button data-view="tutor">Sir Gideon</button>
+  <button data-view="library">Library</button>
+  <button data-view="videos">Lessons</button>
+  <button data-view="community">Community</button>
+  <button data-view="parent">Parent Dashboard</button>
+  <button data-view="store">Store</button>
+  <button data-view="pricing">Membership</button>
+</div>
+
+<main>
+
+  <!-- ======================== HOME ======================== -->
+  <section id="view-home" class="view active">
+    <div class="hero">
+      <div>
+        <div class="kicker"><span class="dot"></span> AI-Powered · PSLE · JCE · BGCSE · IGCSE</div>
+        <h1>The <em>royal</em> academy<br/>your child carries<br/>in their pocket.</h1>
+        <p class="lede">GIDMAS PRIME unites a brilliant AI tutor, a complete syllabus library, video masterclasses and a parent-guided dashboard — into one majestic learning companion. Built for Botswana. Crafted for excellence.</p>
+        <div class="hero-ctas">
+          <button class="btn btn-gold" onclick="go('tutor')">Meet Sir Gideon &nbsp;→</button>
+          <button class="btn btn-ghost" onclick="go('pricing')">Explore Membership</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="medallion">
+          <div class="medallion-inner">
+            <span class="orbit-word top">EXCELLENTIA · SAPIENTIA</span>
+            <span class="medallion-g">G</span>
+            <span class="orbit-word bottom">ANNO MMXXVI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat"><div class="n">4</div><div class="l">Full Curricula</div></div>
+      <div class="stat"><div class="n">1,200+</div><div class="l">Video Lessons</div></div>
+      <div class="stat"><div class="n">24/7</div><div class="l">AI Tutoring</div></div>
+      <div class="stat"><div class="n">9.6★</div><div class="l">Parent Rating</div></div>
+    </div>
+
+    <!-- Curricula -->
+    <section class="block">
+      <div class="section-header">
+        <div class="eyebrow">Curricula Covered</div>
+        <h2>From primary school through IGCSE — one academy.</h2>
+        <p>Complete syllabi, aligned to Botswana's national examinations and the Cambridge International curriculum. Tap any curriculum to enter its dedicated study library.</p>
+      </div>
+      <div class="curriculum-grid">
+        <div class="curriculum-card" onclick="openCurriculum('PSLE')">
+          <span class="badge">Primary</span>
+          <h3>PSLE</h3>
+          <div class="range">Standards 4 – 7</div>
+          <div class="subjects">
+            <span>English</span><span>Setswana</span><span>Maths</span><span>Science</span><span>Social Studies</span>
+          </div>
+        </div>
+        <div class="curriculum-card" onclick="openCurriculum('JCE')">
+          <span class="badge">Junior</span>
+          <h3>JCE</h3>
+          <div class="range">Forms 1 – 2</div>
+          <div class="subjects">
+            <span>English</span><span>Maths</span><span>Sciences</span><span>Setswana</span><span>Agriculture</span><span>Design & Tech</span>
+          </div>
+        </div>
+        <div class="curriculum-card" onclick="openCurriculum('BGCSE')">
+          <span class="badge">Senior</span>
+          <h3>BGCSE</h3>
+          <div class="range">Forms 3 – 5</div>
+          <div class="subjects">
+            <span>Maths</span><span>Biology</span><span>Chemistry</span><span>Physics</span><span>Literature</span><span>Geography</span><span>History</span>
+          </div>
+        </div>
+        <div class="curriculum-card" onclick="openCurriculum('IGCSE')">
+          <span class="badge">International</span>
+          <h3>IGCSE</h3>
+          <div class="range">Cambridge</div>
+          <div class="subjects">
+            <span>Add. Maths</span><span>Physics</span><span>Chemistry</span><span>Biology</span><span>Economics</span><span>ICT</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="block">
+      <div class="section-header">
+        <div class="eyebrow">What's Inside</div>
+        <h2>Every tool a learner needs — under one crest.</h2>
+      </div>
+      <div class="feature-showcase">
+        <div class="feature-card">
+          <div class="feature-ico">✧</div>
+          <h4>Sir Gideon AI Tutor</h4>
+          <p>A patient, human-like tutor who explains like your favourite teacher — step by step, with examples, at your pace.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-ico">❖</div>
+          <h4>Simplified Notes & Exercises</h4>
+          <p>Syllabus-aligned notes with worked examples, practice exercises, and auto-marked tests for every topic.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-ico">▶</div>
+          <h4>Video Masterclasses</h4>
+          <p>Recorded lessons with the option to download for offline viewing — never miss a class, even without data.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-ico">◉</div>
+          <h4>Study Communities</h4>
+          <p>Join discussion groups by grade and subject. Tackle projects together, ask questions, and grow as a class.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-ico">♚</div>
+          <h4>GIDMAS Parent</h4>
+          <p>Parents and guardians see progress, time spent, strengths and weaknesses — all in one trusted dashboard.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-ico">✉</div>
+          <h4>Revision Store</h4>
+          <p>Buy curated revision booklets, past-paper packs and premium courses. Pay with Orange Money, Mascom MyZaka, Smega, Absa & more.</p>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ======================== TUTOR ======================== -->
+  <section id="view-tutor" class="view">
+    <div class="section-header">
+      <div class="eyebrow">Your AI Tutor</div>
+      <h2>Meet Sir Gideon.</h2>
+      <p>Knighted in patience, fluent in every subject from Primary to IGCSE. Ask him anything — he'll explain it simply, show examples, and quiz you if you like.</p>
+    </div>
+
+    <div class="tutor-wrap">
+      <aside class="tutor-sidebar">
+        <div class="tutor-profile">
+          <div class="tutor-avatar">SG</div>
+          <div class="title">Sir Gideon</div>
+          <div class="subtitle">Royal AI Tutor</div>
+        </div>
+        <div class="tutor-subjects">
+          <h5>Choose a Subject</h5>
+          <button class="subject-pill active" data-subject="Mathematics">Mathematics</button>
+          <button class="subject-pill" data-subject="English">English</button>
+          <button class="subject-pill" data-subject="Setswana">Setswana</button>
+          <button class="subject-pill" data-subject="Biology">Biology</button>
+          <button class="subject-pill" data-subject="Chemistry">Chemistry</button>
+          <button class="subject-pill" data-subject="Physics">Physics</button>
+          <button class="subject-pill" data-subject="History">History</button>
+          <button class="subject-pill" data-subject="Geography">Geography</button>
+        </div>
+        <div class="tutor-subjects">
+          <h5>Level</h5>
+          <select id="tutorLevel" class="subject-pill" style="padding:10px 14px; background: rgba(253,248,236,0.04); color: var(--ivory);">
+            <option>PSLE (Std 4–7)</option>
+            <option>JCE (Form 1–2)</option>
+            <option selected>BGCSE (Form 3–5)</option>
+            <option>IGCSE (Cambridge)</option>
+          </select>
+        </div>
+      </aside>
+
+      <div class="tutor-chat">
+        <div class="chat-head">
+          <div class="current-subject" id="currentSubject">Mathematics Lesson</div>
+          <div class="level-chip" id="currentLevel">BGCSE</div>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+          <div class="msg gideon">
+            <div class="msg-avatar">SG</div>
+            <div class="msg-bubble">Dumela! I am <b>Sir Gideon</b>, your royal tutor. I can explain any topic, walk you through homework, or set you practice questions. What shall we learn today?</div>
+          </div>
+        </div>
+        <div class="suggestion-chips" id="suggestionChips">
+          <button class="sug-chip" data-q="Explain quadratic equations with an example.">Quadratic equations</button>
+          <button class="sug-chip" data-q="Help me understand Pythagoras' theorem.">Pythagoras' theorem</button>
+          <button class="sug-chip" data-q="Give me 5 practice questions on fractions.">Practice on fractions</button>
+          <button class="sug-chip" data-q="How do I solve simultaneous equations?">Simultaneous equations</button>
+        </div>
+        <div class="chat-input">
+          <textarea id="chatInput" placeholder="Ask Sir Gideon anything… (press Enter to send)" rows="1"></textarea>
+          <button class="send-btn" id="sendBtn" title="Send">➤</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== LIBRARY ======================== -->
+  <section id="view-library" class="view">
+    <div class="section-header">
+      <div class="eyebrow">Library</div>
+      <h2>Notes, exercises & tests.</h2>
+      <p>Choose a curriculum and a subject — your syllabus is laid out topic by topic, with simplified notes, worked examples, exercises and auto-marked tests.</p>
+    </div>
+
+    <div class="library-tabs" id="libraryTabs">
+      <button class="lib-tab active" data-curriculum="PSLE">PSLE</button>
+      <button class="lib-tab" data-curriculum="JCE">JCE</button>
+      <button class="lib-tab" data-curriculum="BGCSE">BGCSE</button>
+      <button class="lib-tab" data-curriculum="IGCSE">IGCSE</button>
+    </div>
+
+    <div class="note-grid" id="noteGrid"></div>
+  </section>
+
+  <!-- ======================== VIDEOS ======================== -->
+  <section id="view-videos" class="view">
+    <div class="section-header">
+      <div class="eyebrow">Video Masterclasses</div>
+      <h2>Watch. Learn. Download for offline.</h2>
+      <p>Every lesson can be downloaded for viewing without internet — available only inside the app (DRM-protected to respect our teachers' work).</p>
+    </div>
+    <div class="video-grid" id="videoGrid"></div>
+  </section>
+
+  <!-- ======================== COMMUNITY ======================== -->
+  <section id="view-community" class="view">
+    <div class="section-header">
+      <div class="eyebrow">Study Community</div>
+      <h2>Learn together.</h2>
+      <p>Discuss homework, share tips, ask questions, and join subject-specific study groups. A safe, moderated space.</p>
+    </div>
+    <div class="community-wrap">
+      <div class="community-main">
+        <div class="post-composer">
+          <textarea id="postInput" placeholder="What are you studying right now? Ask a question or share a tip…"></textarea>
+          <div class="composer-actions">
+            <div class="composer-tags">
+              <button class="c-tag" data-tag="Maths">#Maths</button>
+              <button class="c-tag" data-tag="English">#English</button>
+              <button class="c-tag" data-tag="Science">#Science</button>
+              <button class="c-tag" data-tag="BGCSE">#BGCSE</button>
+            </div>
+            <button class="btn btn-gold" style="padding:10px 20px; font-size:12px;" id="postBtn">Post</button>
+          </div>
+        </div>
+        <div id="feed"></div>
+      </div>
+      <aside class="community-side">
+        <div class="side-card">
+          <h5>Trending Study Groups</h5>
+          <div class="group-item"><span class="group-name">BGCSE Maths Masters</span><span class="group-count">2,430</span></div>
+          <div class="group-item"><span class="group-name">PSLE Champions 2026</span><span class="group-count">1,188</span></div>
+          <div class="group-item"><span class="group-name">IGCSE Chem Lab</span><span class="group-count">842</span></div>
+          <div class="group-item"><span class="group-name">Setswana Discussions</span><span class="group-count">516</span></div>
+          <div class="group-item"><span class="group-name">JCE Form 2 Study Circle</span><span class="group-count">1,020</span></div>
+        </div>
+        <div class="side-card">
+          <h5>Community Rules</h5>
+          <p style="font-size:13px; color:var(--muted); line-height:1.6;">Be kind. Be honest. Help others as you'd want to be helped. No spam, no cheating on active exams.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ======================== PARENT DASHBOARD ======================== -->
+  <section id="view-parent" class="view">
+    <div class="section-header">
+      <div class="eyebrow">GIDMAS Parent</div>
+      <h2>Know how your child is doing — always.</h2>
+      <p>A clear, honest dashboard for parents and guardians. Track progress, time spent, subject strengths, and weekly growth.</p>
+    </div>
+
+    <div class="parent-grid">
+      <div class="kpi"><div class="label">Weekly Study Time</div><div class="val">9h 42m</div><div class="trend">▲ 14% vs last week</div></div>
+      <div class="kpi"><div class="label">Lessons Completed</div><div class="val">27</div><div class="trend">▲ 6 this week</div></div>
+      <div class="kpi"><div class="label">Average Test Score</div><div class="val">78%</div><div class="trend">▲ Up from 71%</div></div>
+    </div>
+
+    <div class="subject-progress">
+      <h4>Subject Mastery — Term 1</h4>
+      <div class="subject-row"><span class="name">Mathematics</span><div class="bar"><div class="bar-fill" style="width:0%" data-target="86"></div></div><span class="pct">86%</span></div>
+      <div class="subject-row"><span class="name">English</span><div class="bar"><div class="bar-fill" style="width:0%" data-target="74"></div></div><span class="pct">74%</span></div>
+      <div class="subject-row"><span class="name">Biology</span><div class="bar"><div class="bar-fill" style="width:0%" data-target="81"></div></div><span class="pct">81%</span></div>
+      <div class="subject-row"><span class="name">Chemistry</span><div class="bar"><div class="bar-fill" style="width:0%" data-target="68"></div></div><span class="pct">68%</span></div>
+      <div class="subject-row"><span class="name">Physics</span><div class="bar"><div class="bar-fill" style="width:0%" data-target="72"></div></div><span class="pct">72%</span></div>
+      <div class="subject-row"><span class="name">Setswana</span><div class="bar"><div class="bar-fill" style="width:0%" data-target="90"></div></div><span class="pct">90%</span></div>
+    </div>
+  </section>
+
+  <!-- ======================== STORE ======================== -->
+  <section id="view-store" class="view">
+    <div class="section-header">
+      <div class="eyebrow">Revision Store</div>
+      <h2>Curated booklets & courses.</h2>
+      <p>Past-paper packs, revision booklets, and premium mini-courses. Pay with Orange Money, Mascom MyZaka, Smega, Absa, P2C, e-wallet, or bank card.</p>
+    </div>
+    <div class="store-grid" id="storeGrid"></div>
+  </section>
+
+  <!-- ======================== PRICING ======================== -->
+  <section id="view-pricing" class="view">
+    <div class="section-header">
+      <div class="eyebrow">Membership</div>
+      <h2>Three tiers. One royal standard.</h2>
+      <p>All plans include Sir Gideon AI tutoring. Unlock more lessons, downloads, and advanced features as you grow.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="plan">
+        <h3>Basic</h3>
+        <div class="tier-tag">Monthly</div>
+        <div class="price-big"><span class="cur">P</span>49<span class="per">/month</span></div>
+        <p class="blurb">Perfect to try GIDMAS PRIME and get a feel for the royal library.</p>
+        <ul>
+          <li>Sir Gideon AI — 30 questions / day</li>
+          <li>Limited notes & exercises</li>
+          <li>10 video lessons / month</li>
+          <li class="off">Offline downloads</li>
+          <li class="off">Study communities</li>
+          <li class="off">Parent dashboard</li>
+        </ul>
+        <button class="btn btn-ghost" onclick="choosePlan('Basic','P49')">Choose Basic</button>
+      </div>
+      <div class="plan featured">
+        <h3>Standard</h3>
+        <div class="tier-tag">Annual</div>
+        <div class="price-big"><span class="cur">P</span>399<span class="per">/year</span></div>
+        <p class="blurb">The family favourite — major access to every feature across all curricula.</p>
+        <ul>
+          <li>Sir Gideon AI — unlimited questions</li>
+          <li>Full notes, exercises & tests</li>
+          <li>Unlimited video lessons (streaming)</li>
+          <li>Study communities access</li>
+          <li>Parent dashboard included</li>
+          <li class="off">Offline downloads</li>
+        </ul>
+        <button class="btn btn-gold" onclick="choosePlan('Standard','P399')">Choose Standard</button>
+      </div>
+      <div class="plan">
+        <h3>Premium</h3>
+        <div class="tier-tag">Unlimited</div>
+        <div class="price-big"><span class="cur">P</span>899<span class="per">/year</span></div>
+        <p class="blurb">Everything. Unlimited. For serious scholars and ambitious families.</p>
+        <ul>
+          <li>Sir Gideon AI — unlimited + priority</li>
+          <li>Every note, exercise, test & past paper</li>
+          <li>Unlimited streaming + offline downloads</li>
+          <li>Premium study communities</li>
+          <li>Advanced parent dashboard</li>
+          <li>Up to 3 student accounts</li>
+        </ul>
+        <button class="btn btn-emerald" onclick="choosePlan('Premium','P899')">Choose Premium</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ======================== AUTH MODAL ======================== -->
+<div class="modal-backdrop" id="authModal">
+  <div class="modal">
+    <button class="close" onclick="closeAuth()">✕</button>
+    <div class="modal-head">
+      <div class="brand-shield-wrap brand-shield--lg">
+        <div class="brand-shield"><span class="monogram">G</span><span class="brand-shield-fleur"></span></div>
+      </div>
+      <h2 id="authTitle">Welcome back</h2>
+      <p id="authSubtitle">Sign in to continue your royal learning.</p>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-auth-tab="login">Sign in</button>
+      <button class="auth-tab" data-auth-tab="signup">Sign up</button>
+    </div>
+
+    <!-- Login form -->
+    <div id="loginForm">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="student@school.bw" />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" />
+      </div>
+      <button class="btn btn-gold" style="width:100%" onclick="handleLogin()">Sign in</button>
+      <div class="auth-divider">or</div>
+      <div class="auth-alt-methods">
+        <button onclick="handleWhatsApp()">WhatsApp</button>
+        <button onclick="handleGoogle()">Google</button>
+      </div>
+    </div>
+
+    <!-- Signup form -->
+    <div id="signupForm" style="display:none;">
+      <div class="field">
+        <label>Full name</label>
+        <input type="text" id="signupName" placeholder="Tumelo Moeng" />
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="signupEmail" placeholder="you@school.bw" />
+      </div>
+      <div class="field">
+        <label>I am a…</label>
+        <select id="signupRole">
+          <option>Student</option>
+          <option>Parent / Guardian</option>
+          <option>Teacher</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Curriculum</label>
+        <select id="signupCurriculum">
+          <option>PSLE</option>
+          <option>JCE</option>
+          <option selected>BGCSE</option>
+          <option>IGCSE</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="signupPassword" placeholder="Create a strong password" />
+      </div>
+      <button class="btn btn-gold" style="width:100%" onclick="handleSignup()">Create my account</button>
+      <div class="auth-divider">or</div>
+      <div class="auth-alt-methods">
+        <button onclick="handleWhatsApp()">WhatsApp</button>
+        <button onclick="handleGoogle()">Google</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== PAYMENT MODAL ======================== -->
+<div class="modal-backdrop" id="payModal">
+  <div class="modal">
+    <button class="close" onclick="closePay()">✕</button>
+    <div class="modal-head">
+      <div class="brand-shield-wrap brand-shield--lg">
+        <div class="brand-shield"><span class="monogram">G</span><span class="brand-shield-fleur"></span></div>
+      </div>
+      <h2 id="payTitle">Complete your purchase</h2>
+      <p id="paySubtitle">Choose your payment method</p>
+    </div>
+    <div class="pay-options">
+      <div class="pay-option" data-pay="Orange Money">Orange Money</div>
+      <div class="pay-option" data-pay="MyZaka">Mascom MyZaka</div>
+      <div class="pay-option" data-pay="Smega">Smega</div>
+      <div class="pay-option" data-pay="P2C">P2C</div>
+      <div class="pay-option" data-pay="E-Wallet">E-Wallet</div>
+      <div class="pay-option" data-pay="Absa">Absa Bank</div>
+      <div class="pay-option" data-pay="Bank Card">Bank Card</div>
+      <div class="pay-option" data-pay="Bank Transfer">Bank Transfer</div>
+    </div>
+    <div class="field">
+      <label>Phone / Account number</label>
+      <input type="tel" id="payAccount" placeholder="+267 7x xxx xxx" />
+    </div>
+    <button class="btn btn-gold" style="width:100%" onclick="confirmPay()">Pay <span id="payAmount">now</span></button>
+  </div>
+</div>
+
+<!-- ======================== SESSION (signed-in menu) ======================== -->
+<div class="modal-backdrop" id="sessionModal">
+  <div class="modal">
+    <button class="close" onclick="closeSessionModal()">✕</button>
+    <div class="modal-head">
+      <div class="brand-shield-wrap brand-shield--lg">
+        <div class="brand-shield">
+          <span class="monogram">G</span>
+          <span class="brand-shield-fleur"></span>
+        </div>
+      </div>
+      <h2 style="margin-bottom:4px;">Your session</h2>
+      <p id="sessionLine" style="margin:0;"></p>
+    </div>
+    <div class="field">
+      <label>Display name</label>
+      <input type="text" id="sessionNameInput" />
+    </div>
+    <button type="button" class="btn btn-gold" style="width:100%;margin-bottom:10px;" onclick="saveDisplayNameFromSession()">Save name</button>
+    <button type="button" class="btn btn-ghost" style="width:100%;" onclick="signOutAcademy()">Sign out</button>
+  </div>
+</div>
+
+<!-- ======================== TOAST ======================== -->
+<div class="toast" id="toast">
+  <span id="toastIcon">✓</span>
+  <span id="toastText">Done.</span>
+</div>
+
+</div><!-- academyShell -->
+
+<script>
+/* =========================================================
+   GIDMAS PRIME — Application Logic
+   ========================================================= */
+
+const state = {
+  currentView: 'home',
+  user: null,
+  subject: 'Mathematics',
+  level: 'BGCSE (Form 3–5)',
+  chatHistory: [],
+  selectedTags: new Set(),
+  selectedPay: null,
+  pendingItem: null,
+  libraryCurriculum: 'PSLE',
+  posts: [
+    { author: 'Kago M.', avatar: 'KM', time: '2h ago', tag: 'Maths', body: "Can someone explain why the discriminant being negative means there are no real roots? I understand the formula but not the 'why'." },
+    { author: 'Boineelo T.', avatar: 'BT', time: '5h ago', tag: 'BGCSE', body: "Sir Gideon just walked me through photosynthesis step by step. Finally clicked! Anyone else studying Biology Paper 2?" },
+    { author: 'Lesego D.', avatar: 'LD', time: '1d ago', tag: 'English', body: "Tip for essay writing: always plan before you write. I spend 10 minutes mapping ideas and my essays are 2x stronger." }
+  ]
+};
+
+/* ---------- Navigation ---------- */
+function go(view) {
+  state.currentView = view;
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const target = document.getElementById('view-' + view);
+  if (target) target.classList.add('active');
+  document.querySelectorAll('nav.main-nav button').forEach(b => {
+    b.classList.toggle('active', b.dataset.view === view);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  closeDrawer();
+
+  if (view === 'parent') animateBars();
+  if (view === 'library') renderLibrary();
+  if (view === 'videos') renderVideos();
+  if (view === 'store') renderStore();
+  if (view === 'community') renderFeed();
+}
+
+document.querySelectorAll('[data-view]').forEach(btn => {
+  btn.addEventListener('click', () => go(btn.dataset.view));
+});
+
+function toggleDrawer() { document.getElementById('mobileDrawer').classList.toggle('open'); }
+function closeDrawer()  { document.getElementById('mobileDrawer').classList.remove('open'); }
+
+/* ---------- Session & gate (no server — any credentials OK) ---------- */
+function openAuth() {
+  if (!state.user) return;
+  document.getElementById('sessionLine').textContent = 'Signed in as ' + state.user.email;
+  document.getElementById('sessionNameInput').value = state.user.name;
+  document.getElementById('sessionModal').classList.add('show');
+}
+function closeSessionModal() { document.getElementById('sessionModal').classList.remove('show'); }
+function saveDisplayNameFromSession() {
+  const nm = document.getElementById('sessionNameInput').value.trim() || state.user.name;
+  state.user = Object.assign({}, state.user, { name: nm, initials: initials(nm) });
+  persistAcademySession();
+  refreshUserChip();
+  toast('Name updated.', true);
+  closeSessionModal();
+}
+function signOutAcademy() {
+  closeSessionModal();
+  sessionStorage.removeItem('gidmas_academy_ok');
+  sessionStorage.removeItem('gidmas_academy_user');
+  state.user = null;
+  lockAcademyGate();
+}
+function persistAcademySession() {
+  if (!state.user) return;
+  sessionStorage.setItem('gidmas_academy_ok', '1');
+  sessionStorage.setItem('gidmas_academy_user', JSON.stringify(state.user));
+}
+function refreshUserChip() {
+  if (!state.user) return;
+  const chipA = document.getElementById('userAvatar');
+  const chipW = document.getElementById('userWho');
+  if (chipA) chipA.textContent = state.user.initials;
+  if (chipW) chipW.textContent = state.user.name.split(' ')[0];
+}
+function unlockAcademySilent() {
+  document.body.classList.remove('gate-active');
+  var g = document.getElementById('appGate');
+  var shell = document.getElementById('academyShell');
+  if (g) g.hidden = true;
+  if (shell) shell.hidden = false;
+  refreshUserChip();
+}
+function lockAcademyGate() {
+  document.body.classList.add('gate-active');
+  var g = document.getElementById('appGate');
+  var shell = document.getElementById('academyShell');
+  if (shell) shell.hidden = true;
+  if (g) g.hidden = false;
+}
+function closeAuth() { document.getElementById('authModal').classList.remove('show'); }
+
+document.querySelectorAll('[data-auth-tab]').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('[data-auth-tab]').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    const tab = b.dataset.authTab;
+    document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+    document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
+    document.getElementById('authTitle').textContent = tab === 'login' ? 'Welcome back' : 'Join the academy';
+    document.getElementById('authSubtitle').textContent = tab === 'login' ? 'Sign in to continue your royal learning.' : 'Create your account in under a minute.';
+  });
+});
+
+function nameFromEmail(email) {
+  var local = email.split('@')[0] || '';
+  local = local.replace(/[._\-+]+/g, ' ').trim();
+  if (!local) return 'Scholar';
+  return local.replace(/\b\w/g, function (c) { return c.toUpperCase(); }) || 'Scholar';
+}
+function handleGateLogin() {
+  var email = (document.getElementById('gateEmailLogin').value || '').trim() || 'scholar@gidmas.prime';
+  signIn({
+    name: nameFromEmail(email),
+    email: email,
+    initials: initials(nameFromEmail(email))
+  });
+}
+function handleGateSignup() {
+  var nameRaw = (document.getElementById('gateNameUp').value || '').trim();
+  var email = (document.getElementById('gateEmailUp').value || '').trim() || 'scholar@gidmas.prime';
+  var name = nameRaw || nameFromEmail(email);
+  signIn({ name: name, email: email, initials: initials(name) });
+}
+function handleGateShortcut(kind) {
+  if (kind === 'google') signIn({ name: 'Scholar', email: 'google@gidmas.local', initials: 'SC' });
+  else signIn({ name: 'Scholar', email: '+267-phone@gidmas.local', initials: 'SC' });
+}
+document.querySelectorAll('.gate-tab').forEach(function (b) {
+  b.addEventListener('click', function () {
+    document.querySelectorAll('.gate-tab').forEach(function (x) { x.classList.remove('active'); });
+    b.classList.add('active');
+    var signup = b.dataset.gateTab === 'signup';
+    document.getElementById('gateLoginPane').style.display = signup ? 'none' : 'block';
+    document.getElementById('gateSignupPane').style.display = signup ? 'block' : 'none';
+  });
+});
+function handleLogin() {
+  var email = (document.getElementById('loginEmail').value || '').trim() || 'scholar@gidmas.local';
+  signIn({ name: nameFromEmail(email), email: email, initials: initials(nameFromEmail(email)) });
+}
+function handleSignup() {
+  var nameRaw = (document.getElementById('signupName').value || '').trim();
+  var email = (document.getElementById('signupEmail').value || '').trim() || 'scholar@gidmas.local';
+  var name = nameRaw || nameFromEmail(email);
+  signIn({ name: name, email: email, initials: initials(name) });
+}
+function handleWhatsApp() {
+  signIn({ name: 'Scholar', email: 'whatsapp@gidmas.local', initials: 'SC' });
+}
+function handleGoogle() {
+  signIn({ name: 'Scholar', email: 'google@gidmas.local', initials: 'SC' });
+}
+function initials(n) {
+  return n.split(/\s+/).filter(Boolean).slice(0, 2).map(function (x) { return x[0].toUpperCase(); }).join('') || 'S';
+}
+function signIn(u) {
+  state.user = u;
+  persistAcademySession();
+  unlockAcademySilent();
+  closeAuth();
+  toast('Welcome, ' + u.name.split(' ')[0] + '!', true);
+}
+function signOut() { signOutAcademy(); }
+
+/* ---------- Toast ---------- */
+function toast(msg, ok = true) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastText').textContent = msg;
+  document.getElementById('toastIcon').textContent = ok ? '✓' : '!';
+  t.classList.toggle('gold', !ok);
+  t.classList.add('show');
+  clearTimeout(window.__toast);
+  window.__toast = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ============================================
+   SIR GIDEON — local tutor (works offline, no API key)
+   ============================================ */
+
+function sirGideonReply(text, subject, level) {
+  const t = text.toLowerCase();
+  const ctx = "We're in " + subject + " (" + level + ").\n\n";
+
+  var tr = text.trim();
+  if (/^(hi|hello|hey|dumela)\b/i.test(tr) && tr.length < 28) {
+    return "Dumela! I'm Sir Gideon. Ask me to explain a topic, walk through a homework question, or say “practice questions” and I'll set you a short drill.\n\n" + ctx + "What shall we work on first?";
+  }
+  if (/thank|thanks/i.test(t)) {
+    return "You're very welcome — keep going steady. What topic should we do next?";
+  }
+  if (/practice|quiz|test me|questions for me/i.test(t)) {
+    return "Dumela! Here are 5 quick practice prompts:\n\n1) Explain the main idea of today's topic in one sentence.\n2) Work one easy example from your notes without looking.\n3) Try a harder variation and show each step.\n4) Write a “common mistake” someone might make and how to fix it.\n5) Teach it back: pretend you're helping a classmate.\n\nReply with which number you tried and what you wrote — I'll coach the next step.";
+  }
+  const hints = [
+    [/fraction|decimal/i, ctx + "Fractions & decimals:\n1) Same denominator before you add.\n2) Multiply numerators and denominators straight across when multiplying.\n3) For division, invert the second fraction then multiply.\n\nExample: ½ of 60 pula is 30 pula.\n\nWhich step feels shaky?"],
+    [/quadratic|discriminant|parabola/i, ctx + "Quadratics (sketch):\n1) Write ax² + bx + c = 0.\n2) Discriminant Δ = b² − 4ac.\n3) Δ > 0: two real roots; Δ = 0: one repeated root; Δ < 0: no real roots (the parabola doesn't cross the x-axis).\n\nPaste a specific equation if you want a full worked solution."],
+    [/pythagoras|hypotenuse/i, ctx + "Pythagoras: a² + b² = c² where c is the hypotenuse (longest side, opposite the right angle).\n\n1) Square the two shorter sides, add, then square-root for c.\n2) Check units (m, cm) stay consistent.\n\nWant a numeric Botswana-style word problem?"],
+    [/photosynth/i, ctx + "Photosynthesis map:\n• Water + carbon dioxide + light → glucose + oxygen.\n• Mostly in leaf cells (chloroplasts).\n• Energy from light is stored as chemical energy in sugar.\n\nTell me if you need a diagram-style list for your paper."],
+    [/newton|kinematic|force|momentum/i, ctx + "Physics thinking frame:\n1) Draw a tiny sketch and label forces.\n2) Pick a direction as positive.\n3) Use F = ma where it helps; uniform acceleration uses the suvat equations.\n\nShare the exact numbers if you want me to work it through line by line."]
+  ];
+  for (let i = 0; i < hints.length; i++) {
+    if (hints[i][0].test(t)) return hints[i][1];
+  }
+  return "Dumela! " + ctx + "Here's how I can help fastest:\n\n1) Say the exact topic (e.g., “simultaneous equations”).\n2) Tell me what feels confusing — steps, wording, or why it works.\n3) Paste the question from your book or paper.\n\nI'll rebuild it with simple steps and an example you can copy in your workbook.";
+}
+
+document.querySelectorAll('.subject-pill[data-subject]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.subject-pill[data-subject]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.subject = btn.dataset.subject;
+    document.getElementById('currentSubject').textContent = state.subject + ' Lesson';
+    // update suggestions
+    const suggestions = {
+      Mathematics: ['Explain quadratic equations with an example.', "Help me understand Pythagoras' theorem.", 'Give me 5 practice questions on fractions.', 'How do I solve simultaneous equations?'],
+      English: ['How do I write a strong essay introduction?', 'Explain the difference between a simile and a metaphor.', 'Give me 5 practice comprehension questions.', 'What is passive vs active voice?'],
+      Setswana: ['Nkgalemele ka go tlhaloganya dikarolo tsa puo.', 'Nthuse go kwala leboko.', 'Ke eng boleng jwa tsa puo?', 'Mpha dipotso tsa gore ke ikatise.'],
+      Biology: ['Explain photosynthesis step by step.', 'How does the human digestive system work?', 'Give me 5 practice questions on cells.', 'What is the difference between mitosis and meiosis?'],
+      Chemistry: ['Explain ionic vs covalent bonding.', 'How do I balance chemical equations?', 'Practice questions on moles please.', 'What is the periodic trend for electronegativity?'],
+      Physics: ['Explain Newton’s three laws.', 'How do I solve problems with kinematics equations?', 'Practice questions on electricity.', 'What is the difference between mass and weight?'],
+      History: ['Tell me about the history of Botswana.', 'What caused World War 1?', 'Practice questions on the Cold War.', 'Explain the Industrial Revolution.'],
+      Geography: ['Explain the water cycle.', 'What are tectonic plates?', 'Practice questions on climate zones.', 'What causes rainfall in Botswana?']
+    };
+    const chips = document.getElementById('suggestionChips');
+    chips.innerHTML = '';
+    (suggestions[state.subject] || []).forEach(q => {
+      const b = document.createElement('button');
+      b.className = 'sug-chip'; b.textContent = q.length > 40 ? q.slice(0,38)+'…' : q;
+      b.dataset.q = q;
+      b.addEventListener('click', () => { document.getElementById('chatInput').value = q; sendMessage(); });
+      chips.appendChild(b);
+    });
+  });
+});
+
+document.getElementById('tutorLevel').addEventListener('change', (e) => {
+  state.level = e.target.value;
+  document.getElementById('currentLevel').textContent = state.level.split(' ')[0];
+});
+
+// attach suggestion chip click
+document.getElementById('suggestionChips').addEventListener('click', (e) => {
+  if (e.target.classList.contains('sug-chip')) {
+    document.getElementById('chatInput').value = e.target.dataset.q;
+    sendMessage();
+  }
+});
+
+document.getElementById('sendBtn').addEventListener('click', sendMessage);
+document.getElementById('chatInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+document.getElementById('chatInput').addEventListener('input', (e) => {
+  e.target.style.height = 'auto';
+  e.target.style.height = Math.min(e.target.scrollHeight, 140) + 'px';
+});
+
+function appendMessage(role, text, isTyping = false) {
+  const wrap = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'msg ' + (role === 'user' ? 'user' : 'gideon');
+  div.innerHTML = `
+    <div class="msg-avatar">${role === 'user' ? (state.user ? state.user.initials : 'U') : 'SG'}</div>
+    <div class="msg-bubble">${isTyping ? '<span class="typing"><span></span><span></span><span></span></span>' : escapeHtml(text)}</div>
+  `;
+  wrap.appendChild(div);
+  wrap.scrollTop = wrap.scrollHeight;
+  return div;
+}
+function escapeHtml(s) {
+  return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  input.value = '';
+  input.style.height = 'auto';
+
+  appendMessage('user', text);
+  state.chatHistory.push({ role: 'user', content: text });
+
+  const typing = appendMessage('gideon', '', true);
+  document.getElementById('sendBtn').disabled = true;
+
+  await new Promise(function (r) { setTimeout(r, 400 + Math.random() * 500); });
+
+  const reply = sirGideonReply(text, state.subject, state.level);
+  typing.remove();
+  appendMessage('gideon', reply);
+  state.chatHistory.push({ role: 'assistant', content: reply });
+  document.getElementById('sendBtn').disabled = false;
+}
+
+/* ============================================
+   LIBRARY
+   ============================================ */
+
+const LIBRARY = {
+  PSLE: [
+    { tag: 'Mathematics', title: 'Fractions & Decimals', meta: 'Std 6 · 8 topics', progress: 62 },
+    { tag: 'English', title: 'Comprehension Skills', meta: 'Std 7 · 5 topics', progress: 40 },
+    { tag: 'Science', title: 'Living Things', meta: 'Std 6 · 6 topics', progress: 80 },
+    { tag: 'Setswana', title: 'Mafoko le Dipolelo', meta: 'Std 7 · 7 topics', progress: 25 },
+    { tag: 'Social Studies', title: 'Botswana & Its People', meta: 'Std 7 · 9 topics', progress: 50 },
+    { tag: 'Mathematics', title: 'Geometry Basics', meta: 'Std 6 · 6 topics', progress: 72 }
+  ],
+  JCE: [
+    { tag: 'Mathematics', title: 'Algebra Foundations', meta: 'Form 2 · 10 topics', progress: 55 },
+    { tag: 'Integrated Sci.', title: 'Forces & Motion', meta: 'Form 1 · 7 topics', progress: 30 },
+    { tag: 'English', title: 'Essay Writing Craft', meta: 'Form 2 · 6 topics', progress: 48 },
+    { tag: 'Agriculture', title: 'Crop Production', meta: 'Form 2 · 5 topics', progress: 0 },
+    { tag: 'D&T', title: 'Design Thinking Basics', meta: 'Form 1 · 4 topics', progress: 20 },
+    { tag: 'Setswana', title: 'Maboko a Setso', meta: 'Form 2 · 6 topics', progress: 60 }
+  ],
+  BGCSE: [
+    { tag: 'Mathematics', title: 'Quadratics & Graphs', meta: 'Form 4 · 12 topics', progress: 70 },
+    { tag: 'Biology', title: 'Photosynthesis', meta: 'Form 4 · 5 topics', progress: 85 },
+    { tag: 'Chemistry', title: 'Atomic Structure', meta: 'Form 3 · 8 topics', progress: 44 },
+    { tag: 'Physics', title: 'Electricity', meta: 'Form 5 · 10 topics', progress: 58 },
+    { tag: 'Literature', title: 'Poetry Analysis', meta: 'Form 4 · 6 topics', progress: 38 },
+    { tag: 'Geography', title: 'Climate & Vegetation', meta: 'Form 4 · 7 topics', progress: 66 },
+    { tag: 'History', title: 'Scramble for Africa', meta: 'Form 5 · 8 topics', progress: 52 },
+    { tag: 'Mathematics', title: 'Trigonometry', meta: 'Form 5 · 9 topics', progress: 22 }
+  ],
+  IGCSE: [
+    { tag: 'Add. Maths', title: 'Differentiation', meta: 'Cambridge · 10 topics', progress: 40 },
+    { tag: 'Physics', title: 'Electromagnetism', meta: 'Cambridge · 9 topics', progress: 28 },
+    { tag: 'Economics', title: 'Demand & Supply', meta: 'Cambridge · 6 topics', progress: 75 },
+    { tag: 'ICT', title: 'Spreadsheet Mastery', meta: 'Cambridge · 5 topics', progress: 90 },
+    { tag: 'Chemistry', title: 'Organic Chemistry', meta: 'Cambridge · 11 topics', progress: 15 },
+    { tag: 'Biology', title: 'Genetics', meta: 'Cambridge · 8 topics', progress: 50 }
+  ]
+};
+
+function renderLibrary() {
+  const grid = document.getElementById('noteGrid');
+  const items = LIBRARY[state.libraryCurriculum] || [];
+  grid.innerHTML = items.map(it => `
+    <div class="note-card" onclick="openNote('${it.title}')">
+      <div class="note-tag">${it.tag}</div>
+      <h4>${it.title}</h4>
+      <div class="meta">${it.meta}</div>
+      <div class="progress"><div class="progress-fill" style="width:${it.progress}%"></div></div>
+      <div class="note-foot"><span>${it.progress}% complete</span><span>Open →</span></div>
+    </div>
+  `).join('');
+}
+function openNote(title) {
+  toast('Opening: ' + title, true);
+}
+
+document.getElementById('libraryTabs').addEventListener('click', (e) => {
+  if (e.target.classList.contains('lib-tab')) {
+    document.querySelectorAll('.lib-tab').forEach(t => t.classList.remove('active'));
+    e.target.classList.add('active');
+    state.libraryCurriculum = e.target.dataset.curriculum;
+    renderLibrary();
+  }
+});
+
+function openCurriculum(curr) {
+  state.libraryCurriculum = curr;
+  go('library');
+  setTimeout(() => {
+    document.querySelectorAll('.lib-tab').forEach(t => t.classList.toggle('active', t.dataset.curriculum === curr));
+  }, 100);
+}
+
+/* ============================================
+   VIDEOS
+   ============================================ */
+const VIDEOS = [
+  { subject: 'Mathematics', title: 'Quadratic Equations — Full Masterclass', teacher: 'Mr. Motlhabane', duration: '42:18' },
+  { subject: 'Biology', title: 'Photosynthesis: From Leaf to Energy', teacher: 'Mrs. Kgosi', duration: '28:04' },
+  { subject: 'Chemistry', title: 'Balancing Chemical Equations', teacher: 'Mr. Sebina', duration: '19:47' },
+  { subject: 'Physics', title: "Newton's Laws Explained Simply", teacher: 'Dr. Moeng', duration: '33:52' },
+  { subject: 'English', title: 'Writing a Winning Essay', teacher: 'Ms. Ramotswe', duration: '24:11' },
+  { subject: 'Setswana', title: 'Maboko le bokao jwa ona', teacher: 'Rre Phiri', duration: '17:36' },
+  { subject: 'Geography', title: 'Climate Zones of Africa', teacher: 'Mr. Dube', duration: '22:09' },
+  { subject: 'History', title: 'Botswana Independence Story', teacher: 'Mrs. Tafa', duration: '31:28' }
+];
+function renderVideos() {
+  const grid = document.getElementById('videoGrid');
+  grid.innerHTML = VIDEOS.map(v => `
+    <div class="video-card" onclick="playVideo('${v.title.replace(/'/g,'&#39;')}')">
+      <div class="video-thumb">
+        <div class="play-btn">▶</div>
+        <div class="duration-badge">${v.duration}</div>
+      </div>
+      <div class="video-body">
+        <h4>${v.title}</h4>
+        <div class="meta">${v.subject} · ${v.teacher}</div>
+        <div class="download-line">
+          <span style="color:var(--muted);">Offline available (app only)</span>
+          <button class="dl-btn" onclick="event.stopPropagation(); downloadVideo('${v.title.replace(/'/g,'&#39;')}')">⭳ Download</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+function playVideo(title) { toast('Now playing: ' + title, true); }
+function downloadVideo(title) { toast('Queued for offline: ' + title, true); }
+
+/* ============================================
+   STORE
+   ============================================ */
+const STORE_ITEMS = [
+  { title: 'BGCSE Maths Past Paper Pack', grade: '2018 – 2025', desc: 'Every past paper with worked solutions and examiner tips.', price: 'P 120' },
+  { title: 'PSLE Revision Booklet', grade: 'Std 7', desc: '250 pages of focused revision across all five subjects.', price: 'P 85' },
+  { title: 'IGCSE Physics Course', grade: 'Cambridge', desc: 'Premium 40-lesson video course with downloadable workbook.', price: 'P 350' },
+  { title: 'JCE English Essentials', grade: 'Form 1 – 2', desc: 'Grammar, comprehension, and essay writing workbook.', price: 'P 95' },
+  { title: 'BGCSE Biology Booster', grade: 'Form 4 – 5', desc: 'Diagrams, mnemonics and 200+ practice questions.', price: 'P 140' },
+  { title: 'Setswana Paper 1 Practice', grade: 'BGCSE', desc: 'Focused practice for top marks in Setswana paper 1.', price: 'P 75' }
+];
+function renderStore() {
+  const grid = document.getElementById('storeGrid');
+  grid.innerHTML = STORE_ITEMS.map(it => `
+    <div class="store-card">
+      <div class="store-cover">
+        <div class="store-cover-inner">
+          <div class="grade">${it.grade}</div>
+          <h5>${it.title}</h5>
+          <div style="margin-top:auto; font-size:10px; letter-spacing:0.3em; color: var(--gold);">GIDMAS · PRIME</div>
+        </div>
+      </div>
+      <div class="store-body">
+        <h6>${it.title}</h6>
+        <div class="desc">${it.desc}</div>
+        <div class="store-footer">
+          <div class="price">${it.price}</div>
+          <button class="btn btn-emerald" style="padding:8px 14px; font-size:11px;" onclick="buyItem('${it.title.replace(/'/g,'&#39;')}','${it.price}')">Buy</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+function buyItem(title, price) {
+  state.pendingItem = { title, price };
+  openPay(title, price);
+}
+
+/* ============================================
+   PAYMENT
+   ============================================ */
+function openPay(title, price) {
+  document.getElementById('payTitle').textContent = title;
+  document.getElementById('paySubtitle').textContent = 'Total: ' + price + ' · Choose payment method';
+  document.getElementById('payAmount').textContent = price;
+  state.selectedPay = null;
+  document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('selected'));
+  document.getElementById('payModal').classList.add('show');
+}
+function closePay() { document.getElementById('payModal').classList.remove('show'); }
+
+document.querySelectorAll('.pay-option').forEach(o => {
+  o.addEventListener('click', () => {
+    document.querySelectorAll('.pay-option').forEach(x => x.classList.remove('selected'));
+    o.classList.add('selected');
+    state.selectedPay = o.dataset.pay;
+  });
+});
+function confirmPay() {
+  const acct = document.getElementById('payAccount').value.trim();
+  if (!state.selectedPay) { toast('Pick a payment method.', false); return; }
+  if (!acct) { toast('Enter your account / phone number.', false); return; }
+  closePay();
+  toast('Payment via ' + state.selectedPay + ' successful ✓', true);
+}
+
+function choosePlan(name, price) {
+  state.pendingItem = { title: name + ' Membership', price };
+  openPay(name + ' Membership', price);
+}
+
+/* ============================================
+   PARENT DASHBOARD — bar animation
+   ============================================ */
+function animateBars() {
+  requestAnimationFrame(() => {
+    document.querySelectorAll('#view-parent .bar-fill').forEach(el => {
+      el.style.width = el.dataset.target + '%';
+    });
+  });
+}
+
+/* ============================================
+   COMMUNITY
+   ============================================ */
+function renderFeed() {
+  const feed = document.getElementById('feed');
+  feed.innerHTML = state.posts.map(p => `
+    <div class="post">
+      <div class="post-head">
+        <div class="avatar">${p.avatar}</div>
+        <div class="info">
+          <div class="name">${escapeHtml(p.author)}</div>
+          <div class="time">${p.time}</div>
+        </div>
+        <span class="post-tag">#${p.tag}</span>
+      </div>
+      <div class="post-body">${escapeHtml(p.body)}</div>
+      <div class="post-actions">
+        <button class="pa-btn">♡ Like</button>
+        <button class="pa-btn">【 Reply</button>
+        <button class="pa-btn">⤴ Share</button>
+      </div>
+    </div>
+  `).join('');
+}
+document.querySelectorAll('.c-tag').forEach(t => {
+  t.addEventListener('click', () => {
+    const tag = t.dataset.tag;
+    if (state.selectedTags.has(tag)) { state.selectedTags.delete(tag); t.classList.remove('selected'); }
+    else { state.selectedTags.add(tag); t.classList.add('selected'); }
+  });
+});
+document.getElementById('postBtn').addEventListener('click', () => {
+  const txt = document.getElementById('postInput').value.trim();
+  if (!txt) { toast('Write something first!', false); return; }
+  const tag = [...state.selectedTags][0] || 'Study';
+  const author = state.user ? state.user.name : 'Guest Scholar';
+  const avatar = state.user ? state.user.initials : 'GS';
+  state.posts.unshift({ author, avatar, time: 'just now', tag, body: txt });
+  document.getElementById('postInput').value = '';
+  state.selectedTags.clear();
+  document.querySelectorAll('.c-tag.selected').forEach(x => x.classList.remove('selected'));
+  renderFeed();
+  toast('Posted to community!', true);
+});
+
+/* Init — session or gate */
+(function initAcademyGate() {
+  if (sessionStorage.getItem('gidmas_academy_ok') === '1') {
+    try {
+      state.user = JSON.parse(sessionStorage.getItem('gidmas_academy_user') || 'null');
+      if (!state.user || !state.user.name || !state.user.initials) throw new Error('session');
+      unlockAcademySilent();
+      return;
+    } catch (e) {
+      sessionStorage.removeItem('gidmas_academy_ok');
+      sessionStorage.removeItem('gidmas_academy_user');
+      state.user = null;
+    }
+  }
+  lockAcademyGate();
+})();
+renderLibrary();
+renderVideos();
+renderStore();
+renderFeed();
+</script>
+</body>
+</html>

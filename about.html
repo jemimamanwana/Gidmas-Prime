@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What GIDMAS PRIME is — About</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --royal-deep: #061139;
+      --royal: #0b1e5b;
+      --gold: #d4af37;
+      --gold-light: #f2d578;
+      --ivory: #fdf8ec;
+      --muted: rgba(253,248,236,0.72);
+      --line: rgba(212,175,55,0.22);
+      --emerald: #17a05c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(30,58,158,0.42) 0%, transparent 50%),
+        linear-gradient(180deg, var(--royal-deep) 0%, #030826 100%);
+      color: var(--ivory);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: clamp(28px, 6vw, 56px) clamp(18px, 5vw, 28px) 72px;
+    }
+    nav.top {
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+      margin-bottom: 42px;
+    }
+    nav.top a {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    nav.top a:hover { color: var(--gold-light); border-color: var(--line); }
+    nav.top a.primary {
+      border-color: var(--line);
+      color: var(--gold-light);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      margin-bottom: 22px;
+    }
+    .badge span.dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--emerald);
+      box-shadow: 0 0 10px var(--emerald);
+    }
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-size: clamp(1.85rem, 6vw, 2.65rem);
+      line-height: 1.06;
+      margin-bottom: 18px;
+    }
+    h1 em {
+      font-style: italic;
+      background: linear-gradient(90deg, var(--gold-light), var(--gold));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .lead {
+      font-size: 1.06rem;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+    h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.28rem;
+      font-weight: 600;
+      margin: 38px 0 14px;
+      color: var(--gold-light);
+    }
+    p { color: rgba(253,248,236,0.88); margin-bottom: 14px; }
+    ul {
+      margin: 12px 0 22px;
+      padding-left: 1.25rem;
+      color: var(--muted);
+    }
+    li { margin-bottom: 10px; }
+    .panel {
+      margin-top: 36px;
+      padding: 24px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(6,17,57,0.45);
+    }
+    .panel strong { color: var(--ivory); }
+    .cta-row { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: var(--royal-deep);
+      box-shadow: 0 8px 26px rgba(212,175,55,0.28);
+    }
+    .btn-ghost {
+      border: 1px solid var(--line);
+      color: var(--ivory);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top">
+      <a href="index.html">Site hub</a>
+      <a href="academy.html" class="primary">Enter academy</a>
+    </nav>
+
+    <div class="badge"><span class="dot"></span> About GIDMAS PRIME</div>
+
+    <h1>This is what we are building: the <em>royal academy</em> in your pocket.</h1>
+
+    <p class="lead">GIDMAS PRIME pulls together everything a learner actually needs — a patient AI tutor named Sir Gideon, syllabus-aligned notes and exercises, video masterclasses, and a dashboard parents can trust. It is framed as one companion: serious about results, gentle in tone, unmistakably built for Botswana and the exams that matter here.</p>
+
+    <h2>What you get inside</h2>
+    <ul>
+      <li><strong>Sir Gideon</strong> — step-by-step help in language that feels human, tuned to PSLE, JCE, BGCSE and IGCSE.</li>
+      <li><strong>A real library</strong> — simplified notes, worked examples and practice that follows the curricula you already sit for.</li>
+      <li><strong>Lessons on demand</strong> — masterclasses you can watch when data allows, designed with offline-first families in mind.</li>
+      <li><strong>Community</strong> — study circles where questions and tips travel between peers in a moderated space.</li>
+      <li><strong>For parents</strong> — clarity on progress, strengths and gaps without jargon or overwhelm.</li>
+      <li><strong>Extras</strong> — revision bundles and memberships that match how families actually pay locally.</li>
+    </ul>
+
+    <h2>Why “for Botswana”</h2>
+    <p>This is not a generic global product with a palette swap. Pricing, curricula, subject names and contexts are anchored in Botswana’s classrooms and exams — PSLE through BGCSE, plus Cambridge IGCSE where families choose that route. Excellence is universal; the path to it here should speak your language.</p>
+
+    <div class="panel">
+      <strong>Try the academy.</strong>
+      Open the flagship experience below. On first visit you’ll see a friendly sign-in screen: it is only for this demo website — every email and password is accepted so you can explore every screen without wiring a server yet.
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-gold" href="academy.html">Go to academy</a>
+      <a class="btn btn-ghost" href="studio.html">Study studio layout</a>
+    </div>
+  </div>
+</body>
+</html>
